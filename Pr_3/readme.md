@@ -2,6 +2,8 @@
 
 Juan Gago. Marzo/2026
 
+Jose Miguel Gimeno
+
 **RPi: Tabla de enrutamiento**
 
     $ ifconfig eth0 130.233.120.77 netmask 255.255.255.0 up
@@ -63,7 +65,7 @@ Modificar el programa anterior añadiendo un setInterval para que se tomen medid
 
 - Grabar un video de unos pocos segundos en el que se muestre como se varía el potenciómetro y a la vez la salida por consola (MobaXterm) de los valores del INA219.
 
-![description](fig/bulb.gif)
+![description](fig/rasberry_pinout.jpg)
 
 **Ejercicio 4Z. ESPHome Sensor** 
 
