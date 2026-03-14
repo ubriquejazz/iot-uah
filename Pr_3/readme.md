@@ -65,11 +65,11 @@ Modificar el programa anterior añadiendo un setInterval para que se tomen medid
 
 - Grabar un video de unos pocos segundos en el que se muestre como se varía el potenciómetro y a la vez la salida por consola (MobaXterm) de los valores del INA219.
 
+![](fig/sensor_ina219.png)
+
+**Referencias**
+
 ![description](fig/rasberry_pinout.jpg)
-
-**Ejercicio 4Z. ESPHome Sensor** 
-
-Podemos conectar el triple sensor [INA3221](https://esphome.io/components/sensor/ina3221/) a un ESP32 y convertirlo en un elemento de HomeAssistant.
 
 
 
