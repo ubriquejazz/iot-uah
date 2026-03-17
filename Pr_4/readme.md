@@ -55,6 +55,7 @@ bluetooth.startMagnetometerService()
   - Poner en ON todos los LEDs de las filas 1 y 5.
   - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
 
+Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 
 **EJERCICIO 2. Node-RED (RPi)**
 
@@ -75,3 +76,12 @@ Grabar un video corto en el que se muestren los resultados por la consola de Mob
 
 **EJERCICIO 5. Propuesta OPCIONAL.**
 Crear un flow de Node-RED en el que el programa anterior, que lee el acelerómetro, almacene el valor del acelerómetro en una variable global y esa variable global sea representada en un chart del dashboard de Node-RED.
+
+**EJERCICIO 6.**
+
+Reprogramar la Micro:Bit quitando el servicio de acelerómetro, temperatura y UART. Añadir el servicio IO. Crear un flow de Node-RED que:
+
+- Lea 3 sensores analógicos y los muestre en tres gauges del dashboard.
+- Lea 3 entradas digitales y los muestre en 3 LEDs del dashboard.
+- Configure 3 salidas digitales que se puedan poner a 0 y a 1 con tres botones del dashboard.
+- (Opcional) Configure una salida PWM y 2 objetos del dashboard que permitan variar periodo y ciclo de trabajo.
