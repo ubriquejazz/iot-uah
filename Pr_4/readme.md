@@ -1,7 +1,6 @@
 # BLE 
 
-El objetivo de esta práctica es experimentar de forma real, con dispositivos físicos, los conceptos que
-se han visto de forma teórica relativos al Bluetooth de baja energía (BLE), una tecnología cada vez
+El objetivo de esta práctica es experimentar de forma real, con dispositivos físicos, los conceptos que se han visto de forma teórica relativos al Bluetooth de baja energía (BLE), una tecnología cada vez
 más en auge. Se verá como descubrir dispositivos; leer, escribir, cambiar notificación de las características de los servicios ofrecidos por un dispositivo con ‘peripheral role’ desde un dispositivo ‘central role’. Se verá también como programar cada uno de los dispositivos mencionados.
 
 El hardware usado en esta práctica es:
@@ -50,10 +49,11 @@ bluetooth.startMagnetometerService()
 - Conectar la placa Microbit a Windows 10; Windows instalará automáticamente los driver para el puerto COM virtual y para el debugger
 - Instalar **nRFConnect**, abrirlo e instalar el paquete ‘Bluetooth Low Energy’.
   - Conectar el dongle nRF52840.
-  - Abrir (desde nRFConnect) ‘Bluetooth Low Energy’.
-  - Comprobar los servicios LED y Accelerometer.
-  - Poner en ON todos los LEDs de las filas 1 y 5.
-  - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
+  - Abrir (desde nRFConnect) ‘Bluetooth Low Energy’ y conectarse con la MicroBit
+        - Comprobar MAC
+        - Comprobar los servicios LED y Accelerometer.
+        - Poner en ON todos los LEDs de las filas 1 y 5.
+        - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
 
 Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 
@@ -64,24 +64,29 @@ Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 - Añadir el código necesario para representar las componentes X, Y, Z en el chart.
 - Añadir los nodos necesarios para que cada vez que se lee el acelerómetro la fila 3 de la matriz de LEDs haga un toggle.
 
-**EJERCICIO 3. Temperatura**
+**EJERCICIO 3. Node-RED: Temperatura**
 
-- Quitar el servicio de acelerómetro y añadir a la Micro:bit el servicio de temperatura.
+- Quitar el servicio de acelerómetro y añadir a la Microbit el servicio de temperatura.
 - Añadir todos los nodos necesarios en Node-RED para leer la temperatura cada 2 segundos y representarlos en un chart, en un rango de 0 ºC a 50 ºC.
 
-**EJERCICIO 4. Acelerometro**
-Comprobar el funcionamiento del código mostrado, cambiando el periodo de notificación a 160 ms.
-Grabar un video corto en el que se muestren los resultados por la consola de Mobaxterm.
+**EJERCICIO 4. Node-RED: Acelerometro**
 
+- Comprobar el funcionamiento del código mostrado, cambiando el periodo de notificación a 160 ms.
+- Grabar un [video](https://github.com/asciinema/asciinema) en el que se muestren los resultados por la consola de Mobaxterm.
 
 **EJERCICIO 5. Propuesta OPCIONAL.**
-Crear un flow de Node-RED en el que el programa anterior, que lee el acelerómetro, almacene el valor del acelerómetro en una variable global y esa variable global sea representada en un chart del dashboard de Node-RED.
+
+- Crear un flow de Node-RED en el que el programa anterior, que lee el acelerómetro, almacene el valor del acelerómetro en una variable global y esa variable global sea representada en un chart del dashboard de Node-RED.
 
 **EJERCICIO 6.**
 
-Reprogramar la Micro:Bit quitando el servicio de acelerómetro, temperatura y UART. Añadir el servicio IO. Crear un flow de Node-RED que:
+Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UART. Añadir el servicio IO. Crear un flow de Node-RED que:
 
 - Lea 3 sensores analógicos y los muestre en tres gauges del dashboard.
 - Lea 3 entradas digitales y los muestre en 3 LEDs del dashboard.
 - Configure 3 salidas digitales que se puedan poner a 0 y a 1 con tres botones del dashboard.
 - (Opcional) Configure una salida PWM y 2 objetos del dashboard que permitan variar periodo y ciclo de trabajo.
+
+**References**
+- Microbit [pinout](https://makecode.microbit.org/device/pins)
+- 
