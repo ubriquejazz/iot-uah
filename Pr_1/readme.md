@@ -1,6 +1,8 @@
-# WireSharck (1)
+# WireSharck
 
 Juan Gago. Febrero/2026
+
+Jose Miguel Gimeno
 
 **Ejercicio Ping**
 
@@ -59,4 +61,11 @@ Ejecutar el código Python **ntp.py** en el PC local y capturar los paquetes inv
 
     $ python ntp.py
     Time = Mon Feb 13 2026
+
+
+
+**Tabla de enrutamiento**
+
+    $ ifconfig eth0 130.233.120.77 netmask 255.255.255.0 up
+    $ route add default gw 130.233.120.254
 

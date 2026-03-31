@@ -1,13 +1,12 @@
 # RPi, JavaScript y Node-RED
 
-Juan Gago. Marzo/2026
+Juan Manuel Gago
 
 Jose Miguel Gimeno
 
-**RPi: Tabla de enrutamiento**
+**Ejercicio 01. Interfaces en la Raspberry** 
 
-    $ ifconfig eth0 130.233.120.77 netmask 255.255.255.0 up
-    $ route add default gw 130.233.120.254
+Instalar Raspbbian y realizar los test de los dispositivos I2C, UART y GPIOs.
 
 **Ejercico 02. Counter**
 
@@ -43,7 +42,7 @@ Conectar un LED al pin 18 (530), programar el JS anterior y ejecutarlo.
 ~/.node-red$ npm list
 ```
 
-Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de estar en la carpeta de node-red. He creado un bash para hacer esto de forma automatica:
+Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de estar en la carpeta de node-red. He creado un fichero bash para hacer esto de forma automatica:
 
 ```
 ~/repo/uah$  ./copiar.sh Pr_3
@@ -67,9 +66,21 @@ Modificar el programa anterior añadiendo un setInterval para que se tomen medid
 
 ![](fig/sensor_ina219.png)
 
+
+
+**Ejercico 5A: Dashboard**
+
+Instalar el bróker Mosquitto en Raspberry y arrancarlo en una consola. Partiendo de las conexiones de los ejercicios anteriores (LED en GPIO18 y INA219), crear un ‘flow’ en Node-RED de Raspberry que:
+
+- Muestre un chart (dashboard) en el que se visualice el valor de tensión del INA219. Una gauge (dashboard) que visualice el valor de tensión del INA219.
+- Un LED (instalar el paquete ‘node-red-contrib-ui-led’) que indique el estado del GPIO18.
+- Dos button (dasshboard) que permitan poner el GPIO a 1 y a 0.
+
+
+
 **Referencias**
 
-![description](fig/rasberry_pinout.jpg)
+<img src="fig/rasberry_pinout.jpg" alt="description" style="zoom:50%;" />
 
 
 

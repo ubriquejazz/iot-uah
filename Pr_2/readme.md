@@ -1,6 +1,8 @@
 # Protocolo MQTT
 
-Juan Gago. Febrero/2026
+Juan Manuel Gago
+
+Jose Miguel Gimeno
 
 **Ejercicio: broker remoto**
 
