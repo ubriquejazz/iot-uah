@@ -47,9 +47,7 @@ Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de est
 ```
 ~/repo/uah$  ./copiar.sh Pr_3
 ~/repo/uah$  cd ~/.node-red
-~/.node-red$ node Pr_3/blink.js
-
-~/.node-red$ 
+~/.node-red$ node Pr_3/ex03_blink.js
 ```
 
 **Ejercicio 4. I2C Sensor** 
@@ -62,7 +60,9 @@ Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlin
 
 Modificar el programa anterior añadiendo un setInterval para que se tomen medidas del INA219 cada 2s.
 
-- Grabar un video de unos pocos segundos en el que se muestre como se varía el potenciómetro y a la vez la salida por consola (MobaXterm) de los valores del INA219.
+- **Atencion**! Hemos tomado un sensor de luz para el ejemplo por simplicidad:
+
+  
 
 ![](fig/sensor_ina219.png)
 

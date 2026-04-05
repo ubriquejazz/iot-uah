@@ -66,6 +66,6 @@ Ejecutar el código Python **ntp.py** en el PC local y capturar los paquetes inv
 
 **Tabla de enrutamiento**
 
-    $ ifconfig eth0 130.233.120.77 netmask 255.255.255.0 up
-    $ route add default gw 130.233.120.254
+    $ ifconfig eth0 172.20.10.6 netmask 255.255.255.0 up
+    $ route add default gw 172.20.10.1
 
