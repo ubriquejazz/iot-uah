@@ -4,12 +4,15 @@ El objetivo de esta práctica es experimentar de forma real, con dispositivos f�
 más en auge. Se verá como descubrir dispositivos; leer, escribir, cambiar notificación de las características de los servicios ofrecidos por un dispositivo con ‘peripheral role’ desde un dispositivo ‘central role’. Se verá también como programar cada uno de los dispositivos mencionados.
 
 El hardware usado en esta práctica es:
+
 - Un placa BBC Micro:bit V2.
 - Una Raspeberry PI 4.
 - Un dongle Nordic nRF52840.
 - Un PC con Windows 10
 
 **Microbit V2.0**
+
+En la figura siguiente se muestra el aspecto de **[makecode](https://makecode.microbit.org/#editor)** y la aplicación BLE usada en esta práctica:
 
 ```
 bluetooth.onBluetoothConnected(function () {
@@ -22,17 +25,11 @@ input.onButtonPressed(Button.A, function () {
     basic.showIcon(IconNames.Chessboard)
     bluetooth.uartWriteString("Hola desde BLE")
 })
-function doSomething (texto: string) {
-    bluetooth.uartWriteString(texto)
-}
+
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
     basic.showIcon(IconNames.Heart)
 })
 
-input.onButtonPressed(Button.B, function () {
-    doSomething("abc")
-    basic.showIcon(IconNames.StickFigure)
-})
 bluetooth.advertiseUid(9,0,7,true)
 bluetooth.setTransmitPower(7)
 basic.showIcon(IconNames.Square)
@@ -44,6 +41,10 @@ bluetooth.startLEDService()
 bluetooth.startMagnetometerService()
 ```
 
+El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). Por ejemplo, el ‘LED Service’ es el siguiente (figura capturada de la web anterior):
+
+![](fig/led_service.png)
+
 **EJERCICIO 1. nRFConnect**
 
 - Conectar la placa Microbit a Windows 10; Windows instalará automáticamente los driver para el puerto COM virtual y para el debugger
@@ -51,11 +52,12 @@ bluetooth.startMagnetometerService()
   - Conectar el dongle nRF52840.
   - Abrir (desde nRFConnect) ‘Bluetooth Low Energy’ y conectarse con la MicroBit
         - Comprobar MAC
-        - Comprobar los servicios LED y Accelerometer.
-        - Poner en ON todos los LEDs de las filas 1 y 5.
-        - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
+            - Comprobar los servicios LED.
+            - Poner en ON todos los LEDs de las filas 1 y 5.
 
 Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
+
+![](fig/nrfConnect.png)
 
 **EJERCICIO 2. Node-RED (RPi)**
 
@@ -67,7 +69,8 @@ Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 **EJERCICIO 3. Node-RED: Temperatura**
 
 - Quitar el servicio de acelerómetro y añadir a la Microbit el servicio de temperatura.
-- Añadir todos los nodos necesarios en Node-RED para leer la temperatura cada 2 segundos y representarlos en un chart, en un rango de 0 ºC a 50 ºC.
+- Añadir todos los nodos necesarios en Node-RED para leer la temperatura cada 2 segundos 
+- Representarlos en un chart, en un rango de 0 ºC a 50 ºC.
 
 **EJERCICIO 4. Node-RED: Acelerometro**
 

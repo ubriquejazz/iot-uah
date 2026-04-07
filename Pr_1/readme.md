@@ -13,8 +13,8 @@ Desde la línea de comandos del PC1 ejecutar un ‘ping’ a la dirección del P
 Hemos comprobado que el PC1 (.106) no dispone de la MAC del PC2 (.107) en su tabla ARP con el comando:
 
     $ arp -a
-    $ arp -d 172.29.28.107
-    $ ping 172.29.28.107
+    $ arp -d 172.29.29.70
+    $ ping 172.29.29.70
     $ lynx http:\\ip4.me
 
 
