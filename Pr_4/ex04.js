@@ -32,7 +32,7 @@ noble.on('discover', (peripheral) => {
                         
                         // 1. Set the Update Period (Frequency)
                         if (char.uuid === ACCEL_PERIOD_UUID) {
-                            const period = Buffer.from([0x50, 0x00]); // 80ms
+                            const period = Buffer.from([0xA0, 0x00]); // 80ms 0x05
                             char.write(period, false, () => console.log('Period set.'));
                         }
 

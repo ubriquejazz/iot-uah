@@ -64,9 +64,15 @@ Nuestras microbit tienen la MAC:
 
 **EJERCICIO 2. Node-RED: Acelerómetro**
 
-- Probar el ejemplo de lectura del acelerómetro.
 - Añadir el código necesario para representar las componentes X, Y, Z en el chart.
 - Añadir los nodos necesarios para que cada vez que se lee el acelerómetro la fila 3 de la matriz de LEDs haga un toggle.
+
+![](fig/node_red_axis.png)
+**Nota: envio a una característica de la Micro:bit**
+
+Vamos a enviar 5 bytes a la característica ‘LED matrix state’:
+
+![](fig/node_red_leds.png)
 
 **EJERCICIO 3. Node-RED: Temperatura**
 
