@@ -41,7 +41,7 @@ bluetooth.startLEDService()
 bluetooth.startMagnetometerService()
 ```
 
-El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). Por ejemplo, el ‘LED Service’ es el siguiente (figura capturada de la web anterior):
+El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). Por ejemplo, el **LED Service** es el siguiente (figura capturada de la web anterior):
 
 ![](fig/led_service.png)
 
@@ -51,18 +51,15 @@ El significado de esos servicios, características, UUIDs, etc., se pueden ver e
 - Instalar **nRFConnect**, abrirlo e instalar el paquete ‘Bluetooth Low Energy’.
   - Conectar el dongle nRF52840.
   - Abrir (desde nRFConnect) ‘Bluetooth Low Energy’ y conectarse con la MicroBit
-        - Comprobar MAC
-            - Comprobar los servicios LED.
-            - Poner en ON todos los LEDs de las filas 1 y 5.
         - Comprobar MAC y los servicios LED y Accelerometer.
-        - Poner en ON todos los LEDs de las filas 1 y 5.
-        - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
+            - Poner en ON todos los LEDs de las filas 1 y 5.
+            - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
 
 ![](fig/nrfConnect.png)
 
 Nuestras microbit tienen la MAC:
 
-- Jose Miguel D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
+- Jose Miguel d9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 - Juan Manuel e0:d3:73:8f:d6:ed
 
 **EJERCICIO 2. Node-RED: Acelerómetro**
