@@ -1,13 +1,14 @@
 # BLE 
 
-El objetivo de esta práctica es experimentar de forma real, con dispositivos físicos, los conceptos que se han visto de forma teórica relativos al Bluetooth de baja energía (BLE), una tecnología cada vez
-más en auge. Se verá como descubrir dispositivos; leer, escribir, cambiar notificación de las características de los servicios ofrecidos por un dispositivo con ‘peripheral role’ desde un dispositivo ‘central role’. Se verá también como programar cada uno de los dispositivos mencionados.
+Juan Manuel Gago
 
-El hardware usado en esta práctica es:
+Jose Miguel Gimeno
+
+El objetivo de esta práctica es ver como leer, escribir, cambiar notificación de las características de los servicios ofrecidos por un dispositivo con ‘peripheral role’ desde un dispositivo ‘central role’. El hardware usado en esta práctica es:
+
 - Un placa BBC Micro:bit V2.
 - Una Raspeberry PI 4.
 - Un dongle Nordic nRF52840.
-- Un PC con Windows 10
 
 **Microbit V2.0**
 
@@ -50,16 +51,17 @@ bluetooth.startMagnetometerService()
 - Instalar **nRFConnect**, abrirlo e instalar el paquete ‘Bluetooth Low Energy’.
   - Conectar el dongle nRF52840.
   - Abrir (desde nRFConnect) ‘Bluetooth Low Energy’ y conectarse con la MicroBit
-        - Comprobar MAC
-        - Comprobar los servicios LED y Accelerometer.
+        - Comprobar MAC y los servicios LED y Accelerometer.
         - Poner en ON todos los LEDs de las filas 1 y 5.
         - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
 
-Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
+Nuestras microbit tienen la MAC:
 
-**EJERCICIO 2. Node-RED (RPi)**
+- Jose Miguel D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
+- Juan Manuel e0:d3:73:8f:d6:ed
 
-- Instalar todos los módulos necesarios para poder trabajar con BLE desde Node-RED.
+**EJERCICIO 2. Node-RED: Acelerómetro**
+
 - Probar el ejemplo de lectura del acelerómetro.
 - Añadir el código necesario para representar las componentes X, Y, Z en el chart.
 - Añadir los nodos necesarios para que cada vez que se lee el acelerómetro la fila 3 de la matriz de LEDs haga un toggle.
@@ -69,10 +71,12 @@ Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 - Quitar el servicio de acelerómetro y añadir a la Microbit el servicio de temperatura.
 - Añadir todos los nodos necesarios en Node-RED para leer la temperatura cada 2 segundos y representarlos en un chart, en un rango de 0 ºC a 50 ºC.
 
-**EJERCICIO 4. Node-RED: Acelerometro**
+**EJERCICIO 4. Javascript: Acelerometro**
 
-- Comprobar el funcionamiento del código mostrado, cambiando el periodo de notificación a 160 ms.
+- Comprobar el funcionamiento del [código](ex04.js), cambiando el periodo de notificación a 160 ms.
 - Grabar un [video](https://github.com/asciinema/asciinema) en el que se muestren los resultados por la consola de Mobaxterm.
+
+![](fig/script.PNG)
 
 **EJERCICIO 5. Propuesta OPCIONAL.**
 
@@ -80,7 +84,7 @@ Nuestra MAC es D9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
 
 **EJERCICIO 6.**
 
-Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UART. Añadir el servicio IO. Crear un flow de Node-RED que:
+Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UART y añadir el **servicio IO**. Crear un flow de Node-RED que:
 
 - Lea 3 sensores analógicos y los muestre en tres gauges del dashboard.
 - Lea 3 entradas digitales y los muestre en 3 LEDs del dashboard.

@@ -1,6 +1,6 @@
 const noble = require('@abandonware/noble');
 
-const TARGET_MAC = 'df:63:6b:53:c8:37';
+const TARGET_MAC = 'e0:d3:73:8f:d6:ed';
 const ACCEL_SERVICE_UUID = 'e95d0753251d470aa062fa1922dfa9a8';
 const ACCEL_DATA_UUID = 'e95dca4b251d470aa062fa1922dfa9a8';
 const ACCEL_PERIOD_UUID = 'e95dfb11251d470aa062fa1922dfa9a8';
