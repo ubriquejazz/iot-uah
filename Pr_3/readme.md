@@ -42,11 +42,11 @@ Conectar un LED al pin 18 (530), programar el JS anterior y ejecutarlo.
 ~/.node-red$ npm list
 ```
 
-Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de estar en la carpeta de node-red. He creado un fichero bash para hacer esto de forma automatica:
+Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de estar en la carpeta de node-red. Hemos creado un fichero bash para hacer esto de forma automatica:
 
 ```
-~/repo/uah$  ./copiar.sh Pr_3
-~/repo/uah$  cd ~/.node-red
+~/repo/uah$ ./copiar.sh Pr_3
+~/repo/uah$ cd ~/.node-red
 ~/.node-red$ node Pr_3/ex03_blink.js
 ```
 
@@ -60,12 +60,7 @@ Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlin
 
 Modificar el programa anterior añadiendo un setInterval para que se tomen medidas del INA219 cada 2s.
 
-- **Atencion**! Hemos tomado un sensor de luz para el ejemplo por simplicidad:
-
-  
-
 ![](fig/sensor_ina219.png)
-
 
 
 **Ejercico 5A: Dashboard**
@@ -76,11 +71,6 @@ Instalar el bróker Mosquitto en Raspberry y arrancarlo en una consola. Partiend
 - Un LED (instalar el paquete ‘node-red-contrib-ui-led’) que indique el estado del GPIO18.
 - Dos button (dasshboard) que permitan poner el GPIO a 1 y a 0.
 
-
-
 **Referencias**
 
 <img src="fig/rasberry_pinout.jpg" alt="description" style="zoom:50%;" />
-
-
-
