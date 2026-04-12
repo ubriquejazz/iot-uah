@@ -1,10 +1,22 @@
 var buf = msg.payload.characteristics.e95dca4b251d470aa062fa1922dfa9a8; 
-var axi_01 = new Int16Array(1); // 16 bits integer
+var value = new Int16Array(1); // 16 bits integer
 
-axi_01 = buf[1]<<8 | buf[0];
+value = buf[1]<<8 | buf[0];
+if (value > 1024) value = value - 65535;
 
-if (axi_01 > 1024) 
-    axi_01 = axi_01 - 65535; // entre +1024 y -1024 
+msg.payload = value;
+return msg;
 
-msg.payload = axi_01;
+// Y axi
+value = buf[3]<<8 | buf[2];
+if (value > 1024) value = value - 65535;
+
+msg.payload = value;
+return msg;
+
+// Z axi
+value = buf[5]<<8 | buf[4];
+if (value > 1024) value = value - 65535;
+
+msg.payload = value;
 return msg;
