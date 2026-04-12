@@ -52,24 +52,23 @@ Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de est
 
 **Ejercicio 4. I2C Sensor** 
 
-Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlink/ina219.pdf) y un resistor variable. Programar el JS anterior y ejecutarlo tomando varias medidas según posición del potenciómetro.
+Conectar al bus I2C de la Raspberry un [BH1750](https://www.ti.com/lit/ds/symlink/BH1750.pdf) y un resistor variable. Programar el JS anterior y ejecutarlo tomando varias medidas según luz de la habitacion.
 
 ```
-~/.node-red$ node Pr_3/ina219.js
+~/.node-red$ node Pr_3/ex04_bh1750.js
 ```
 
-Modificar el programa anterior añadiendo un setInterval para que se tomen medidas del INA219 cada 2s.
+Modificar el programa anterior añadiendo un setInterval para que se tomen medidas cada 2s.
 
-![](fig/sensor_ina219.png)
+![](fig/sensor_bh1750.png)
 
 
 **Ejercico 5A: Dashboard**
 
-Instalar el bróker Mosquitto en Raspberry y arrancarlo en una consola. Partiendo de las conexiones de los ejercicios anteriores (LED en GPIO18 y INA219), crear un ‘flow’ en Node-RED de Raspberry que:
+Instalar el bróker Mosquitto en Raspberry y arrancarlo en una consola. Partiendo de las conexiones de los ejercicios anteriores (LED en GPIO18 y BH1750), crear un ‘flow’ en Node-RED de Raspberry que:
 
-- Muestre un chart (dashboard) en el que se visualice el valor de tensión del INA219. Una gauge (dashboard) que visualice el valor de tensión del INA219.
+- Muestre un chart (dashboard) en el que se visualice el valor de tensión del BH1750. Una gauge (dashboard) que visualice el valor de luminosidad (lx).
 - Un LED (instalar el paquete ‘node-red-contrib-ui-led’) que indique el estado del GPIO18.
-- Dos button (dasshboard) que permitan poner el GPIO a 1 y a 0.
 
 **Referencias**
 
