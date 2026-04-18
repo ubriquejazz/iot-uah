@@ -25,20 +25,18 @@ input.onButtonPressed(Button.A, function () {
     basic.showIcon(IconNames.Chessboard)
     bluetooth.uartWriteString("Hola desde BLE")
 })
-
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
     basic.showIcon(IconNames.Heart)
 })
 
 bluetooth.advertiseUid(9,0,7,true)
 bluetooth.setTransmitPower(7)
-basic.showIcon(IconNames.Square)
 bluetooth.startUartService()
 bluetooth.startIOPinService()
 bluetooth.startTemperatureService()
 bluetooth.startAccelerometerService()
 bluetooth.startLEDService()
-bluetooth.startMagnetometerService()
+basic.showIcon(IconNames.Square)
 ```
 
 El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). Por ejemplo, el **LED Service** es el siguiente (figura capturada de la web anterior):
@@ -103,4 +101,4 @@ Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UAR
 **References**
 
 - Microbit [pinout](https://makecode.microbit.org/device/pins)
-- 
+- L
