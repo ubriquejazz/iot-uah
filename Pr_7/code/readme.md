@@ -1,4 +1,4 @@
-# RuiSantos
+# MicroPython RuiSantos
 
 ## MQTT Hello World
 
@@ -13,6 +13,8 @@ Ejemplo simple de comunicación MQTT
 ## Node-Red Client
 
 Ejemplo simple de comunicación MQTT para simular el envío de datos a un servidor Node-RED. En este caso se lee un sensor 1W y se muestra en un chart del dashboard. Tambien hay un led que se puede encender:
+
+<img src="../fig/hardware_setup.png" style="zoom:50%;" />
 
 ## Web Server
 
