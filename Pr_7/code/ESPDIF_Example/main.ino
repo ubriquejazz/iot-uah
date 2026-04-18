@@ -123,15 +123,12 @@ void reconnect() {
 // Sets your mqtt broker and sets the callback function
 // The callback function is what receives messages and actually controls the LEDs
 void setup() {
-  pinMode(lamp, OUTPUT);
-  
-  dht.begin();
-  
+  pinMode(lamp, OUTPUT);  
+  dht.begin();  
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-
 }
 
 // For this project, you don't need to change anything in the loop function. Basically it ensures that you ESP is connected to your broker

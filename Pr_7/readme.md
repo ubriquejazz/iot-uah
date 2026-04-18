@@ -2,12 +2,15 @@
 
 ## Micropython
 
-Modificar el ejemplo de comunicación MQTT del [libro](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) para simular el envío de datos simulados desde el ESP32 a un servidor Node-RED.
+Echar un vistazo al  [libro](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master). Modificar el [ejemplo](code/Node_RED_Client/main.py) de comunicación MQTT para simular el envío de datos desde el ESP32 a un servidor Node-RED. En este caso se lee un sensor 1W:
+
+![](fig/hardware_setup.png)
+
+**Nota**: tambien se incluye un [ejemplo](code/Web_Server_Output/main.py) simple de servidor web en el que se enciende el LED conectado al GPIO2.
 
 - Se simularán dos sensores en el ESP32 y se enviarán los datos a Node-RED cada 4 s.
 
 ![](fig/Node_RED_Flow_Nodes.PNG)
-
 
 ## STM32L475E - Aplicación MQTT genérica
 
