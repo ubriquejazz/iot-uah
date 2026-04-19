@@ -1,0 +1,98 @@
+[
+    {
+        "id": "tab_termo",
+        "type": "tab",
+        "label": "micro:bit Temperature Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "n3",
+        "type": "inject",
+        "z": "tab_termo",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "e95d9250-251d-470a-a062-fa1922dfa9a8",
+        "payload": "subscribe",
+        "payloadType": "str",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "7c52f9fc400c98ec"
+            ]
+        ]
+    },
+    {
+        "id": "n2",
+        "type": "function",
+        "z": "tab_termo",
+        "name": "Convert Temp",
+        "func": "// The generic-ble node outputs an object.\n// We look for the Temperature Characteristic UUID.\nvar uuid = \"e95d9250251d470aa062fa1922dfa9a8\";\nvar data = msg.payload.characteristics[uuid];\n\nif (data && Buffer.isBuffer(data)) {\n    // Temperature is a signed 8-bit integer (Int8)\n    msg.payload = data.readInt8(0);\n    msg.unit = \"°C\";\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "n4"
+            ]
+        ]
+    },
+    {
+        "id": "n4",
+        "type": "debug",
+        "z": "tab_termo",
+        "name": "Temperature",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 610,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "7c52f9fc400c98ec",
+        "type": "Generic BLE in",
+        "z": "tab_termo",
+        "name": "",
+        "genericBle": "fa92c237ee1ddd04",
+        "useString": false,
+        "notification": true,
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "n2"
+            ]
+        ]
+    },
+    {
+        "id": "fa92c237ee1ddd04",
+        "type": "Generic BLE",
+        "localName": "BBC micro:bit",
+        "address": "e0:d3:73:8f:d6:ed",
+        "uuid": "e0d3738fd6ed",
+        "characteristics": []
+    }
+]

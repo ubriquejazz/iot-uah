@@ -55,9 +55,9 @@ El significado de esos servicios, características, UUIDs, etc., se pueden ver e
 
 ![](fig/nrfConnect.png)
 
-Nuestras microbit tienen la MAC:
+Nuestras microbits tienen las MAC:
 
-- Jose Miguel d9:05:09:08:B3:C6 que corresponde a una potencia de -28dBm
+- Jose Miguel d9:05:09:08:B3:C6 
 - Juan Manuel e0:d3:73:8f:d6:ed
 
 **EJERCICIO 2. Node-RED: Acelerómetro**
@@ -65,7 +65,8 @@ Nuestras microbit tienen la MAC:
 - Añadir el código necesario para representar las componentes X, Y, Z en el chart.
 - Añadir los nodos necesarios para que cada vez que se lee el acelerómetro la fila 3 de la matriz de LEDs haga un toggle.
 
-![](fig/node_red_axis.png)
+![](fig/ex02_axis.png)
+
 **Nota: envio a una característica de la Micro:bit**
 
 Vamos a enviar 5 bytes a la característica ‘LED matrix state’:
@@ -77,6 +78,8 @@ Vamos a enviar 5 bytes a la característica ‘LED matrix state’:
 - Quitar el servicio de acelerómetro y añadir a la Microbit el servicio de temperatura.
 - Añadir todos los nodos necesarios en Node-RED para leer la temperatura cada 2 segundos 
 - Representarlos en un chart, en un rango de 0 ºC a 50 ºC.
+
+![](fig/ex03_temp_2s.png)
 
 **EJERCICIO 4. Javascript: Acelerometro**
 
@@ -98,7 +101,8 @@ Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UAR
 - Configure 3 salidas digitales que se puedan poner a 0 y a 1 con tres botones del dashboard.
 - (Opcional) Configure una salida PWM y 2 objetos del dashboard que permitan variar periodo y ciclo de trabajo.
 
+![](fig/ex06_gpios.png)
+
 **References**
 
 - Microbit [pinout](https://makecode.microbit.org/device/pins)
-- L

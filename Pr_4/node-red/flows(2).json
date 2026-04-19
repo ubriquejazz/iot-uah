@@ -1,0 +1,271 @@
+[
+    {
+        "id": "tab_magneto",
+        "type": "tab",
+        "label": "micro:bit Magnetometer Chart",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "inj_start",
+        "type": "inject",
+        "z": "tab_magneto",
+        "name": "Activar",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "e95dfb11-251d-470a-a062-fa1922dfa9a8",
+        "payload": "subscribe",
+        "payloadType": "str",
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "0187d87deee2a4f6"
+            ]
+        ]
+    },
+    {
+        "id": "func_split",
+        "type": "function",
+        "z": "tab_magneto",
+        "name": "Procesar X,Y,Z",
+        "func": "var uuid = \"e95dfb11251d470aa062fa1922dfa9a8\";\nvar buf = msg.payload.characteristics[uuid];\n\nif (buf && buf.length >= 6) {\n    // El micro:bit envía 2 bytes por eje (Little Endian, Signed)\n    var x = buf.readInt16LE(0);\n    var y = buf.readInt16LE(2);\n    var z = buf.readInt16LE(4);\n\n    // Enviamos tres mensajes distintos, uno para cada línea del gráfico\n    return [\n        { payload: x, topic: \"Eje X\" },\n        { payload: y, topic: \"Eje Y\" },\n        { payload: z, topic: \"Eje Z\" }\n    ];\n}\nreturn null;",
+        "outputs": 3,
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "chart_node"
+            ],
+            [
+                "chart_node"
+            ],
+            [
+                "chart_node"
+            ]
+        ]
+    },
+    {
+        "id": "chart_node",
+        "type": "ui_chart",
+        "z": "tab_magneto",
+        "name": "Gráfico Magnetómetro",
+        "group": "070a3a0516fece51",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Componentes",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "0",
+        "removeOlderPoints": "",
+        "cutout": "",
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0187d87deee2a4f6",
+        "type": "Generic BLE in",
+        "z": "tab_magneto",
+        "name": "",
+        "genericBle": "0148c29efcb1d1ab",
+        "useString": false,
+        "notification": true,
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "func_split"
+            ]
+        ]
+    },
+    {
+        "id": "070a3a0516fece51",
+        "type": "ui_group",
+        "name": "P4",
+        "tab": "906a2cd0b9cf9f90",
+        "order": 1,
+        "disp": true,
+        "width": "11",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0148c29efcb1d1ab",
+        "type": "Generic BLE",
+        "localName": "BBC micro:bit",
+        "address": "e0:d3:73:8f:d6:ed",
+        "uuid": "e0d3738fd6ed",
+        "characteristics": [
+            {
+                "uuid": "2a05",
+                "name": "Service Changed",
+                "type": "org.bluetooth.characteristic.gatt.service_changed",
+                "notifiable": false,
+                "readable": false,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "2a26",
+                "name": "Firmware Revision String",
+                "type": "org.bluetooth.characteristic.firmware_revision_string",
+                "notifiable": false,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "2a25",
+                "name": "Serial Number String",
+                "type": "org.bluetooth.characteristic.serial_number_string",
+                "notifiable": false,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "2a24",
+                "name": "Model Number String",
+                "type": "org.bluetooth.characteristic.model_number_string",
+                "notifiable": false,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "8ec90004f3154f609fb8838830daea50",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": false,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95dfb24251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": true,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95dca4b251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d1b25251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": true,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d9250251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95db84c251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d23c4251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": false,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d5404251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": false,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d9775251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e97d3b10251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": false,
+                "writable": false,
+                "writeWithoutResponse": false
+            }
+        ]
+    },
+    {
+        "id": "906a2cd0b9cf9f90",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

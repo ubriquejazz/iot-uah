@@ -1,0 +1,471 @@
+[
+    {
+        "id": "79d6609901cb66ba",
+        "type": "tab",
+        "label": "Raspberry GPIO",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4e49b496be7177ac",
+        "type": "inject",
+        "z": "79d6609901cb66ba",
+        "name": "On",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "72af1533301e7805",
+                "a30932ead3182935"
+            ]
+        ]
+    },
+    {
+        "id": "b2357d6ea408fbd6",
+        "type": "inject",
+        "z": "79d6609901cb66ba",
+        "name": "Off",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "72af1533301e7805",
+                "a30932ead3182935"
+            ]
+        ]
+    },
+    {
+        "id": "72af1533301e7805",
+        "type": "rpi-gpio out",
+        "z": "79d6609901cb66ba",
+        "name": "",
+        "pin": "18",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 460,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a30932ead3182935",
+        "type": "debug",
+        "z": "79d6609901cb66ba",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f12fe1ba5fc29fd1",
+        "type": "ui_led",
+        "z": "79d6609901cb66ba",
+        "order": 1,
+        "group": "070a3a0516fece51",
+        "width": "",
+        "height": "",
+        "label": "Pin P0",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#00ff00",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED P0",
+        "x": 880,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f309f66887ce633f",
+        "type": "ui_led",
+        "z": "79d6609901cb66ba",
+        "order": 2,
+        "group": "070a3a0516fece51",
+        "width": "",
+        "height": "",
+        "label": "Pin P1",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#00ff00",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED P1",
+        "x": 880,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6c1910dc52233019",
+        "type": "ui_led",
+        "z": "79d6609901cb66ba",
+        "order": 3,
+        "group": "070a3a0516fece51",
+        "width": "",
+        "height": "",
+        "label": "Pin P2",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#00ff00",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED P2",
+        "x": 880,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f0581b37186027f6",
+        "type": "inject",
+        "z": "79d6609901cb66ba",
+        "name": "1. Config  (P0, P1, P2)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "e95db9fe-251d-470a-a062-fa1922dfa9a8",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "e5d720d27860b8d3"
+            ]
+        ]
+    },
+    {
+        "id": "e5d720d27860b8d3",
+        "type": "function",
+        "z": "79d6609901cb66ba",
+        "name": "Set Mask",
+        "func": "// Máscara para pines 0, 1 y 2 en binario: 00000111 (7 en decimal)\n// Esto le dice al micro:bit que P0, P1 y P2 son digitales.\nmsg.payload = Buffer.from([7]); \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "3d4986eb5c5ec6ef"
+            ]
+        ]
+    },
+    {
+        "id": "aa0aaf85914d6ba8",
+        "type": "inject",
+        "z": "79d6609901cb66ba",
+        "name": "2. Suscribirse",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "4",
+        "topic": "e95d8d00-251d-470a-a062-fa1922dfa9a8",
+        "payload": "subscribe",
+        "payloadType": "str",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "3d4986eb5c5ec6ef"
+            ]
+        ]
+    },
+    {
+        "id": "0d268a970bd4a1af",
+        "type": "function",
+        "z": "79d6609901cb66ba",
+        "name": "Extraer P0, P1, P2",
+        "func": "var uuid = \"e95d8d00251d470aa062fa1922dfa9a8\";\nvar data = msg.payload.characteristics[uuid];\n\nif (data && Buffer.isBuffer(data)) {\n    var pinValues = data[0]; // El primer byte contiene el estado de los pines\n    \n    // Extraemos los bits individuales\n    var p0 = (pinValues & 1) ? true : false;\n    var p1 = (pinValues & 2) ? true : false;\n    var p2 = (pinValues & 4) ? true : false;\n\n    return [\n        { payload: p0 },\n        { payload: p1 },\n        { payload: p2 }\n    ];\n}\nreturn null;",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 380,
+        "wires": [
+            [
+                "f12fe1ba5fc29fd1"
+            ],
+            [
+                "f309f66887ce633f"
+            ],
+            [
+                "6c1910dc52233019"
+            ]
+        ]
+    },
+    {
+        "id": "3d4986eb5c5ec6ef",
+        "type": "Generic BLE in",
+        "z": "79d6609901cb66ba",
+        "name": "",
+        "genericBle": "fa92c237ee1ddd04",
+        "useString": false,
+        "notification": true,
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "0d268a970bd4a1af",
+                "7ce3a533bab98e67"
+            ]
+        ]
+    },
+    {
+        "id": "7ce3a533bab98e67",
+        "type": "debug",
+        "z": "79d6609901cb66ba",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "070a3a0516fece51",
+        "type": "ui_group",
+        "name": "P4",
+        "tab": "906a2cd0b9cf9f90",
+        "order": 1,
+        "disp": true,
+        "width": "11",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fa92c237ee1ddd04",
+        "type": "Generic BLE",
+        "localName": "BBC micro:bit",
+        "address": "e0:d3:73:8f:d6:ed",
+        "uuid": "e0d3738fd6ed",
+        "characteristics": [
+            {
+                "uuid": "2a05",
+                "name": "Service Changed",
+                "type": "org.bluetooth.characteristic.gatt.service_changed",
+                "notifiable": false,
+                "readable": false,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "2a26",
+                "name": "Firmware Revision String",
+                "type": "org.bluetooth.characteristic.firmware_revision_string",
+                "notifiable": false,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "2a25",
+                "name": "Serial Number String",
+                "type": "org.bluetooth.characteristic.serial_number_string",
+                "notifiable": false,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "2a24",
+                "name": "Model Number String",
+                "type": "org.bluetooth.characteristic.model_number_string",
+                "notifiable": false,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "8ec90004f3154f609fb8838830daea50",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": false,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95dfb24251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": true,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95dca4b251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d1b25251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": true,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d9250251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95db84c251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d23c4251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": false,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d5404251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": false,
+                "readable": false,
+                "writable": true,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e95d9775251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": true,
+                "writable": false,
+                "writeWithoutResponse": false
+            },
+            {
+                "uuid": "e97d3b10251d470aa062fa1922dfa9a8",
+                "name": "<Unnamed>",
+                "type": "(Custom Type)",
+                "notifiable": true,
+                "readable": false,
+                "writable": false,
+                "writeWithoutResponse": false
+            }
+        ]
+    },
+    {
+        "id": "906a2cd0b9cf9f90",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
