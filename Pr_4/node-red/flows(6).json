@@ -1,6 +1,6 @@
 [
     {
-        "id": "79d6609901cb66ba",
+        "id": "tab_gpio",
         "type": "tab",
         "label": "Raspberry GPIO",
         "disabled": false,
@@ -9,7 +9,7 @@
     {
         "id": "4e49b496be7177ac",
         "type": "inject",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "On",
         "props": [
             {
@@ -35,7 +35,7 @@
     {
         "id": "b2357d6ea408fbd6",
         "type": "inject",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "Off",
         "props": [
             {
@@ -61,7 +61,7 @@
     {
         "id": "72af1533301e7805",
         "type": "rpi-gpio out",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "",
         "pin": "18",
         "set": "",
@@ -76,7 +76,7 @@
     {
         "id": "a30932ead3182935",
         "type": "debug",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -92,7 +92,7 @@
     {
         "id": "f12fe1ba5fc29fd1",
         "type": "ui_led",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "order": 1,
         "group": "070a3a0516fece51",
         "width": "",
@@ -122,7 +122,7 @@
     {
         "id": "f309f66887ce633f",
         "type": "ui_led",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "order": 2,
         "group": "070a3a0516fece51",
         "width": "",
@@ -152,7 +152,7 @@
     {
         "id": "6c1910dc52233019",
         "type": "ui_led",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "order": 3,
         "group": "070a3a0516fece51",
         "width": "",
@@ -182,7 +182,7 @@
     {
         "id": "f0581b37186027f6",
         "type": "inject",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "1. Config  (P0, P1, P2)",
         "props": [
             {
@@ -211,7 +211,7 @@
     {
         "id": "e5d720d27860b8d3",
         "type": "function",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "Set Mask",
         "func": "// Máscara para pines 0, 1 y 2 en binario: 00000111 (7 en decimal)\n// Esto le dice al micro:bit que P0, P1 y P2 son digitales.\nmsg.payload = Buffer.from([7]); \nreturn msg;",
         "outputs": 1,
@@ -230,7 +230,7 @@
     {
         "id": "aa0aaf85914d6ba8",
         "type": "inject",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "2. Suscribirse",
         "props": [
             {
@@ -259,7 +259,7 @@
     {
         "id": "0d268a970bd4a1af",
         "type": "function",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "Extraer P0, P1, P2",
         "func": "var uuid = \"e95d8d00251d470aa062fa1922dfa9a8\";\nvar data = msg.payload.characteristics[uuid];\n\nif (data && Buffer.isBuffer(data)) {\n    var pinValues = data[0]; // El primer byte contiene el estado de los pines\n    \n    // Extraemos los bits individuales\n    var p0 = (pinValues & 1) ? true : false;\n    var p1 = (pinValues & 2) ? true : false;\n    var p2 = (pinValues & 4) ? true : false;\n\n    return [\n        { payload: p0 },\n        { payload: p1 },\n        { payload: p2 }\n    ];\n}\nreturn null;",
         "outputs": 3,
@@ -284,7 +284,7 @@
     {
         "id": "3d4986eb5c5ec6ef",
         "type": "Generic BLE in",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "",
         "genericBle": "fa92c237ee1ddd04",
         "useString": false,
@@ -301,7 +301,7 @@
     {
         "id": "7ce3a533bab98e67",
         "type": "debug",
-        "z": "79d6609901cb66ba",
+        "z": "tab_gpio",
         "name": "",
         "active": true,
         "tosidebar": true,
