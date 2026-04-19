@@ -1,4 +1,6 @@
 # Complete project details at https://RandomNerdTutorials.com/micropython-programming-with-esp32-and-esp8266/
+from machine import Pin
+led = Pin(2, Pin.OUT)
 
 def web_page():
   if led.value() == 1:
