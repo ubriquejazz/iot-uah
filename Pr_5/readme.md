@@ -29,3 +29,4 @@ Instalar OpenSSL y crear los diferentes certificados y keys. Arrancar mosquitto 
 **EJERCICIO 4.**
 
 Modificar el flow del ejercicio 2 y comprobar su correcto funcionamiento con SSL/TSL. Capturar la pantalla de debug de Node-RED para añadir evidencia de funcionamiento a la memoria de esta práctica.
+

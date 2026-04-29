@@ -39,10 +39,6 @@ bluetooth.startLEDService()
 basic.showIcon(IconNames.Square)
 ```
 
-El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). Por ejemplo, el **LED Service** es el siguiente (figura capturada de la web anterior):
-
-![](fig/led_service.png)
-
 **EJERCICIO 1. nRFConnect**
 
 - Conectar la placa Microbit a Windows 10; Windows instalará automáticamente los driver para el puerto COM virtual y para el debugger
@@ -106,3 +102,14 @@ Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UAR
 **References**
 
 - Microbit [pinout](https://makecode.microbit.org/device/pins)
+
+![](fig/mbit_overview.png)
+
+![alt text](fig/image.png)
+
+![alt text](fig/image-1.png)
+
+![alt text](fig/image-2.png)
+
+El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). 
+
