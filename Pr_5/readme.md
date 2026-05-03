@@ -2,31 +2,63 @@
 
 En esta práctica se introducen las comunicaciones MQTT con seguridad (autenticación).
 
-El método más simple consiste en añadir una autenticación de usuario mediante un par usuariopassword. Como se verá más adelante, esto ofrece una autenticación pobre ya que con las herramientas adecuadas es sencillo obtener el password.
+## 1. MQTT con user/password
 
-Lo que en realidad se utiliza en la práctica es la autenticación SSL/TSL. Se verá cómo crear los diferentes ficheros de autenticación y cómo utilizarlos con el software usado en prácticas anteriores (mosquitto, MQTT.fx, MQTTbox, Node-RED).
+En primer lugar es necesario añadir al fichero de configuración del broker (mosquitto_passwd.conf) lo siguiente:
 
-**EJERCICIO 2.**
+     == allow_anonymous false
+    password_file c:\mosquitto\passwd_test.txt
 
-Capturar el paquete de conexión para ver user y password. Utilizar diferentes topic, user y password..
+Hay que crear un fichero de usuarios y passwords, un par user:passwd por línea. En el fichero ‘passwd_test.txt’ sólo hay un usuario (jmra: jmra1)
 
-![](../fig/whiresharck.png)
+Ejecutamos
 
-**EJERCICIO 2.**
+    $ mosquitto_passwd.exe -U .\passwd_test.txt
 
-Instalar Node.js y node-RED en Windows:
+A continuación se arranca el broker especificando el fichero de configuración a usar, ‘mosquitto_passwd.conf’:
 
-- Node.js: https://nodejs.org/es (o https://nodejs.org/en) 
+    $ mosquitto.exe -c mosquitto_passwd.conf -v
 
-- Node-RED: https://nodered.org/docs/getting-started/windows
+Subscriber (otra consola) 
 
-Crear en Node-RED un flow con nodos MQTT-in y MQTT-out, con seguridad user/password y capturar la comunicación entre ambos nodos.
+    $ mosquitto_sub.exe -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1'
 
-**EJERCICIO 3.**
+Publisher (otra consola)
 
-Instalar OpenSSL y crear los diferentes certificados y keys. Arrancar mosquitto broker con seguridad SSL/TSL y comunicar los clientes mosquitto_pub y mosquitto_sub. Capturar la comunicación con Wireshark e interpretar los paquetes obtenidos.
+    $ mosquitto_pub.exe -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1' -m 'Hola people'
 
-**EJERCICIO 4.**
+Captura del paquete de conexión para ver user y password en texto plano: 
 
-Modificar el flow del ejercicio 2 y comprobar su correcto funcionamiento con SSL/TSL. Capturar la pantalla de debug de Node-RED para añadir evidencia de funcionamiento a la memoria de esta práctica.
+![](fig/wshark_p4.png)
 
+## 2. MQTT con user/password en Node-RED
+
+Instalar Node.js y node-RED en Windows. Crear en Node-RED un flow con nodos MQTTs con seguridad user/password:
+
+![](fig/flow_p4.png)
+
+Capturamos la comunicación entre ambos nodos
+
+![wireshark]()
+
+## 3. Seguridad en MQTT usando SSL/TSL
+
+Instalar OpenSSL y crear los diferentes certificados y keys. 
+
+![placeholder]()
+
+Arrancar mosquitto broker con seguridad SSL/TSL y comunicar los clientes mosquitto_pub y mosquitto_sub (consola). 
+
+Capturar los paquetes obtenidos y vemos que son indescifrables:
+
+![wireshark]()
+
+## 4. Seguridad usando SSL/TSL en Node-RED
+
+Modificar el flow del ejercicio anterior y comprobar su correcto funcionamiento con SSL/TSL.
+
+![](fig/flow_p4.png)
+
+Capturar la pantalla de debug de Node-RED para añadir evidencia de funcionamiento:
+
+![msg_dbg]()
