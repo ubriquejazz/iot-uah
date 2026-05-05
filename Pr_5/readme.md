@@ -13,19 +13,19 @@ Hay que crear un fichero de usuarios y passwords, un par user:passwd por línea.
 
 Ejecutamos
 
-    $ mosquitto_passwd.exe -U .\passwd_test.txt
+    $ mosquitto_passwd -U .\passwd_test.txt
 
 A continuación se arranca el broker especificando el fichero de configuración a usar, ‘mosquitto_passwd.conf’:
 
-    $ mosquitto.exe -c mosquitto_passwd.conf -v
+    $ mosquitto -c mosquitto_passwd.conf -v
 
 Subscriber (otra consola) 
 
-    $ mosquitto_sub.exe -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1'
+    $ mosquitto_sub -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1'
 
 Publisher (otra consola)
 
-    $ mosquitto_pub.exe -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1' -m 'Hola people'
+    $ mosquitto_pub -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1' -m 'Hola people'
 
 Captura del paquete de conexión para ver user y password en texto plano: 
 
