@@ -2,20 +2,13 @@
 
 ## Practicas guiadas 20%
 
-### uC para IoT
-Características de los microcontroladores ESP32
-- Programación con micropython
-- Programación a bajo nivel (ESP-IDF)
-
-### Protocolos de comunicaciones utilizados en IoT
-- Práctica de protocolos utilizados en IoT (MQTT, NodeRED)
-- Práctica comunicaciones MQTT seguras
-
-### Comunicaciones inalámbricas
-- NRF52840-DONGLE para ZigBee, BLE
-- [Ciseco Transceiver](https://draptik.github.io/posts/2015/07/10/remotly-measuring-temperatures-with-a-raspberry-pi-using-radio-frequency-modules-from-ciseco-part-1-hardware/) Remotly measuring temperatures 
-
-- 
+- Práctica de Linux y Javascript (Pr_3)
+- Protocolos utilizados en IoT (MQTT, NodeRED)
+- NRF52840 y/o Micro:Bit para BLE (Pr_4)
+- Remotly measuring temperatures using [Ciseco](https://draptik.github.io/posts/2015/07/10/remotly-measuring-temperatures-with-a-raspberry-pi-using-radio-frequency-modules-from-ciseco-part-1-hardware/) 
+- Práctica comunicaciones MQTT seguras (Pr_5)
+- Javascript avanzado (Pr_6)
+- Programación con micropython (Pr_7)
 
 ## Practica final 30%
 
@@ -23,7 +16,6 @@ Se propone el desarrollo de una aplicación para el control de varias salidas di
 
 - Raspberry Pi4, ESP32
 - B-L475E-IOT01A Discovery kit.
-  
 
 ### Raspberry Pi4
 
@@ -46,7 +38,6 @@ Para la visualización de los datos de los dos nodos hardware descritos se desar
   
 - Publicación de la información de las sensores y estados de las entradas y salidas digitales. Los datos se representarán de forma gráfica,  usando...
   -  ‘gauges’ para la visualización de los valores actuales de cada  sensor 
-  
   -  ‘charts’ para la visualización histórica de  los sensores de temperatura y humedad proporcionados por el nodo 2 (últimas 24 horas) 
   
 - Gestión de los cuatro GPIOs de salida y visualización del estado de los ocho GPIOs utilizados.

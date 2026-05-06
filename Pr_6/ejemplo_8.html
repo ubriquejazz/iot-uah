@@ -59,6 +59,7 @@
             updateCanvas(lectura.temperatura, lectura.iluminacion);
         }        
     } 
+   
     // actualiza el valor de la temperatura en el código HTML
     function updateTemperature(temperatura){
         document.getElementById("temperatura").innerHTML = temperatura + " &ordm;C";
@@ -67,6 +68,7 @@
         document.getElementById("temp").style.backgroundColor = "rgb("+color_R+",0,"+color_B+")";
         document.getElementById("temp").style.width=""+temperatura+"px";
     }
+    
     // actualiza el valor de la iluminación en el código HTML
     function updateIluminacion(iluminacion){
         document.getElementById("iluminacion").innerHTML = iluminacion + " lux";
@@ -104,20 +106,24 @@
             ctx.clearRect(0, 0, 200, 200);
             ctx.font = "15px Arial";
             ctx.fillText("Temperatura", 10, 30); 
+            
             // Rectángulo con el exterior azul y la interior roja de tamaño variables
             ctx.fillStyle = "#0000FF"; 
             ctx.rect(40, 50, 100, 20);
             ctx.stroke(); 
             ctx.fillStyle = "#FF0000"; 
             ctx.fillRect(40, 50, temp, 20);
+            
             // Escribe texto
             ctx.fillStyle = "black"; 
             ctx.font = "15px Arial";
             ctx.fillText("Iluminacion", 10, 100); 
+            
             // Arco del indicador radial
             ctx.beginPath();
             ctx.arc(80, 150, 40, Math.PI, 2*Math.PI);
             ctx.stroke(); 
+            
             // Almacena el origen de coordenadas y la rotación para recuperar posteriormente
             ctx.save(); 
             // Rotación proporcional a la variable
