@@ -1,4 +1,4 @@
-# Visualizadores gráficos con Javascript
+# Visualizadores gráficos simples
 
 A continuación se muestran varios ejemplos de ficheros HTML que pretenden enseñar la forma de visualizar datos recibidos desde un servidor MQTT
 
@@ -9,9 +9,6 @@ A continuación se muestran varios ejemplos de ficheros HTML que pretenden ense�
 5. Cliente MQTT leyendo varias variables en un JSON
 6. Representa los valores en una tabla
 7. Visualización en barra horizontal
-8. Utilizando [canvas](https://www.w3schools.com/graphics/canvas_intro.asp) en HTML
-9. Uso de librerías de controles predefinidas
-10. Uso de la librería Chart.js
 
 ## Ejemplo 4
 
@@ -31,12 +28,6 @@ Ejemplo:  {"temperatura":8,"iluminacion":100,"now":15 8739421196}
 El Ejemplo 6 representa estos valores en una tabla y en 7 mostramos zonas criticas:
 
 <img src="fig/zona_critica.png" style="zoom:50%;" />
-
-
-
-## Flow (RPi)
-
-![](fig/node-flow.png)
 
 ## Web-server
 
