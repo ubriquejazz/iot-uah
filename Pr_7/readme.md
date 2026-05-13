@@ -1,5 +1,9 @@
 # Bajo Nivel
 
+Jose Miguel Gimeno
+
+Juan M. Gago (27/05)
+
 ## Micropython
 
 Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. Modificar el [ejemplo](code/Node_RED_Client/main.py) de comunicación MQTT para simular el envío de datos a un servidor Node-RED. En este caso se lee un sensor 1W y se muestra en un chart del dashboard. Tambien hay un led que se puede encender.

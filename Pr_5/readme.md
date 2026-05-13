@@ -1,5 +1,9 @@
 # MQTT con SSL/TSL
 
+Jose Miguel Gimeno
+
+Juan M. Gago (27/05)
+
 En esta práctica se introducen las comunicaciones MQTT con seguridad (autenticación).
 
 ## 1. MQTT con user/password

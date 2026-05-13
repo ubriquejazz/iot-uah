@@ -1,5 +1,9 @@
 # Visualizadores gráficos simples
 
+Jose Miguel Gimeno
+
+Juan M. Gago (27/05)
+
 A continuación se muestran varios ejemplos de ficheros HTML que pretenden enseñar la forma de visualizar datos recibidos desde un servidor MQTT
 
 1. Página básica de texto de HTML

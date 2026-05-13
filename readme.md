@@ -31,13 +31,9 @@ El B-L475E-IOT01A Discovery kit se conectará a una WiFi (TBC). Cada vez que se 
 ### Broker MQTT
 Se utilizará un broker local en la RPi4 para publicar y suscribir mensajes MQTT. Opcionalmente se puede usar seguridad SSL.
 
-## Web server
+### Web server
+
 Para la visualización de los datos de los dos nodos hardware descritos se desarrollará un servidor Web en la RPi4 con **Node-RED**. El servidor debe ser capaz  de:
 
 - Publicación y admisión de suscripción a datos de los nodos MQTT. El formato de mensajes será JSON.
-  
-- Publicación de la información de las sensores y estados de las entradas y salidas digitales. Los datos se representarán de forma gráfica,  usando...
-  -  ‘gauges’ para la visualización de los valores actuales de cada  sensor 
-  -  ‘charts’ para la visualización histórica de  los sensores de temperatura y humedad proporcionados por el nodo 2 (últimas 24 horas) 
-  
 - Gestión de los cuatro GPIOs de salida y visualización del estado de los ocho GPIOs utilizados.
