@@ -49,6 +49,8 @@ Capturamos la comunicación entre ambos nodos
 
 ## B1. Seguridad en MQTT usando SSL/TSL
 
+### Mosquitto Broker
+
 Instalar OpenSSL y crear los diferentes certificados y keys. 
 
 <img src="fig/cert_server.png" style="zoom:33%;" />
@@ -61,11 +63,25 @@ Ahora firmamos el certificado del broker con el certificado ca.crt:
 
 <img src="fig/cert_firma.png" alt="firma" style="zoom:50%;" />
 
+Vamos al directorio /etc/mosquitto y colocamos las keys y certificado
+
+- ca_certificates/ aqui va el fichero **ca.crt** 
+- certs/ aqui va los server certificates (chmod a+r)
+
+El fichero mosquitto.conf quedaria asi:
+
+    cafile /etc/mosquitto/ca_certificates/ca.crt
+    certfile /etc/mosquitto/certs/server.crt
+    keyfile /etc/mosquitto/certs/server.key
+    tls_version tlsv1.2
+
 Al arrancar mosquitto broker con seguridad SSL/TSL, se obtiene un error:
 
     sudo systemctl restart mosquitto.service
     Job for mosquitto.service failed because the control process exited with error code.
     See "systemctl status mosquitto.service" and "journalctl -xeu mosquitto.service" for details.
+
+### Mosquitto Clients
 
 Comunicar los clientes mosquitto_pub y mosquitto_sub (consola). 
 
@@ -73,6 +89,9 @@ Comunicar los clientes mosquitto_pub y mosquitto_sub (consola).
 - Script para publicar un mensaje [publisher](code/client.sh)
 
 Capturar los paquetes obtenidos y ver que son indescifrables:
+
+    $ ./subscriber.sh tema ca.crt
+    $ ./client.sh tema "hola a todos!" ca.crt
 
 ![wireshark]()
 
