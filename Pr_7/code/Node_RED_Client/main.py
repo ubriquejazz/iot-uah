@@ -1,4 +1,18 @@
-# Complete project details at https://RandomNerdTutorials.com/micropython-programming-with-esp32-and-esp8266/
+from umqttsimple import MQTTClient
+import ubinascii
+
+mqtt_server = '192.168.1.104'
+
+client_id = ubinascii.hexlify(machine.unique_id())
+topic_sub = b'output'
+topic_pub = b'temp'
+
+import onewire
+import ds18x20
+
+ds_pin = machine.Pin(14)
+ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
+led = machine.Pin(2, machine.Pin.OUT, value=0)
 
 def read_ds_sensor():
   roms = ds_sensor.scan()
@@ -26,7 +40,7 @@ def sub_cb(topic, msg):
 
 def connect_and_subscribe():
   global client_id, mqtt_server, topic_sub
-  client = MQTTClient(client_id, mqtt_server, user=mqtt_user, password=mqtt_pass)
+  client = MQTTClient(client_id, mqtt_server)
   client.set_callback(sub_cb)
   client.connect()
   client.subscribe(topic_sub)
@@ -42,6 +56,9 @@ try:
   client = connect_and_subscribe()
 except OSError as e:
   restart_and_reconnect()
+
+last_sensor_reading = 0
+readings_interval = 5
 
 while True:
   try:

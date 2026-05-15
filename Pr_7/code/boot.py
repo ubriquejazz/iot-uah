@@ -1,10 +1,11 @@
-# Complete project details at https://RandomNerdTutorials.com/micropython-programming-with-esp32-and-esp8266/
-
 try:
   import usocket as socket
 except:
   import socket
 
+import micropython
+import time
+import machine
 import network
 import esp
 esp.osdebug(None)

@@ -1,3 +1,11 @@
+from umqttsimple import MQTTClient
+import ubinascii
+
+mqtt_server = '192.168.1.144'
+
+client_id = ubinascii.hexlify(machine.unique_id())
+topic_sub = b'notification'
+topic_pub = b'hello'
 
 def sub_cb(topic, msg):
   print((topic, msg))
@@ -35,8 +43,5 @@ while True:
       client.publish(topic_pub, msg)
       last_message = time.time()
       count += 1
-  except onewire.OneWireError:
-    print('Failed to read/publish sensor readings.')
-    time.sleep(1)
   except OSError as e:
     restart_and_reconnect()
