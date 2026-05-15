@@ -1,8 +1,7 @@
 # Visualizadores gráficos simples
 
 Jose Miguel Gimeno
-
-Juan M. Gago (27/05)
+Juan M. Gago (TBC)
 
 A continuación se muestran varios ejemplos de ficheros HTML que pretenden enseñar la forma de visualizar datos recibidos desde un servidor MQTT
 

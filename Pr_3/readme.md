@@ -13,7 +13,7 @@ Instalar Raspbbian y realizar los test de los dispositivos I2C, UART y GPIOs.
 Programar el JS anterior en la Raspberry y ejecutarlo.
 
 ```
-$ node count.js 
+$ node ex02_count.js 
 Hola desde Node.js 
 Suma :1234 + 1.234 = 1235.234
 Execution 1  
@@ -36,10 +36,8 @@ Nota sobre los métodos empleados
 Conectar un LED al pin 18 (530), programar el JS anterior y ejecutarlo.
 
 ```
-~$ grep GPIO18 | cat /sys/kernel/debug/gpio
-...
+~$ grep GPIO18 | cat /sys/kernel/debug/gpi
 ~/.node-red$ npm install onoff
-~/.node-red$ npm list
 ```
 
 Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de estar en la carpeta de node-red. Hemos creado un fichero bash para hacer esto de forma automatica:
@@ -47,6 +45,15 @@ Cuando usamos un script que emplea la instuccion **require("onoff")**, ha de est
 ```
 ~/repo/uah$ ./copiar.sh Pr_3
 ~/repo/uah$ cd ~/.node-red
+~/.node-red$ npm list
+node-red-project@0.0.1 /home/alumno/.node-red
+├── node-red-dashboard@3.6.6
+├── node-red-node-pi-gpio@2.0.7
+├── node-red-node-ping@0.3.3
+├── node-red-node-random@0.4.1
+├── node-red-node-serialport@2.0.3
+├── node-red-node-smooth@0.1.2
+└── onoff@6.0.3
 ~/.node-red$ node Pr_3/ex03_blink.js
 ```
 
