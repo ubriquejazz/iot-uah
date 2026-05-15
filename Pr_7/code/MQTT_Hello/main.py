@@ -1,19 +1,13 @@
+import urandom
 
-topic_sub = b'notification'
 topic_pub = b'hello'
-
-def sub_cb(topic, msg):
-  print((topic, msg))
-  if topic == b'notification' and msg == b'received':
-    print('ESP received hello message')
+# b'sensor/temperature'  # Changed to a more descriptive topic
 
 def connect_and_subscribe():
-  global client_id, mqtt_server, topic_sub
+  global client_id, mqtt_server
   client = MQTTClient(client_id, mqtt_server)
-  client.set_callback(sub_cb)
   client.connect()
-  client.subscribe(topic_sub)
-  print('Connected to %s MQTT broker, subscribed to %s topic' % (mqtt_server, topic_sub))
+  print('Connected to %s MQTT broker' % mqtt_server)
   return client
 
 def restart_and_reconnect():
@@ -27,16 +21,19 @@ except OSError as e:
   restart_and_reconnect()
 
 last_sensor_reading = 0
-readings_interval = 5
+readings_interval = 6
 count = 0
 
 while True:
   try:
     client.check_msg()
-    if (time.time() - last_sensor_reading) > readings_interval:
-      msg = b'Hello #%d' % count
+    if (time.time() - last_sensor_reading) > readings_interval:     
+      simulated_temp = urandom.randint(-100, 900)      
+      msg = b'%d' % simulated_temp
+      #msg = b'Hello #%d' % count      
       client.publish(topic_pub, msg)
       last_sensor_reading = time.time()
       count += 1
   except OSError as e:
+    print("Network error caught:", e)
     restart_and_reconnect()
