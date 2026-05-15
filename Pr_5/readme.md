@@ -45,11 +45,11 @@ Capturamos la comunicación entre ambos nodos
 
 ![wireshark]()
 
-## B3. Seguridad en MQTT usando SSL/TSL
+---
+
+## B1. Seguridad en MQTT usando SSL/TSL
 
 Instalar OpenSSL y crear los diferentes certificados y keys. 
-
-![server]()
 
 <img src="fig/cert_server.png" style="zoom:33%;" />
 
@@ -61,15 +61,22 @@ Ahora firmamos el certificado del broker con el certificado ca.crt:
 
 <img src="fig/cert_firma.png" alt="firma" style="zoom:50%;" />
 
-Arrancar mosquitto broker con seguridad SSL/TSL y comunicar los clientes mosquitto_pub y mosquitto_sub (consola). 
+Al arrancar mosquitto broker con seguridad SSL/TSL, se obtiene un error:
 
+    sudo systemctl restart mosquitto.service
+    Job for mosquitto.service failed because the control process exited with error code.
+    See "systemctl status mosquitto.service" and "journalctl -xeu mosquitto.service" for details.
 
+Comunicar los clientes mosquitto_pub y mosquitto_sub (consola). 
+
+- Script para escuchar un topic [subscriber](code/subscriber.sh)
+- Script para publicar un mensaje [publisher](code/client.sh)
 
 Capturar los paquetes obtenidos y ver que son indescifrables:
 
 ![wireshark]()
 
-## 4. Seguridad usando SSL/TSL en Node-RED
+## B2. Seguridad usando SSL/TSL en Node-RED
 
 Modificar el flow del ejercicio anterior y comprobar su correcto funcionamiento con SSL/TSL.
 
@@ -78,3 +85,5 @@ Modificar el flow del ejercicio anterior y comprobar su correcto funcionamiento 
 Capturar la pantalla de debug de Node-RED para añadir evidencia de funcionamiento:
 
 ![msg_dbg]()
+
+NOTA: No hay nada que capturar debido al error en la seccion B1
