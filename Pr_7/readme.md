@@ -1,15 +1,16 @@
-# Bajo Nivel
+# MQTT con Micropython
 
 Jose Miguel Gimeno
+
 Juan M. Gago (27/05)
 
 ## A. Micropython
 
-Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. Modificar el [ejemplo](code/Node_RED_Client/main.py) de comunicación MQTT para simular el envío de datos a un servidor Node-RED. En este caso se lee un sensor 1W y se muestra en un chart del dashboard. Tambien hay un led que se puede encender.
+Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. Modificar el [ejemplo](code/MQTT_Hello/main.py) de comunicación MQTT para simular el envío de datos a un servidor Node-RED.
+
+![](fig/hello_mqtt.png)
 
 - Se simularán dos sensores en el ESP32 y se enviarán los datos a Node-RED cada 4 s.
-
-![](fig/Node_RED_Flow_Nodes.PNG)
 
 ## B. STM32L475E - Aplicación MQTT genérica
 
