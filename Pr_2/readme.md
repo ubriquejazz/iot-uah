@@ -28,9 +28,11 @@ mosquitto_sub -d -h 127.0.0.1 -t sensor_temp
 
 **Ejercicio: Python (paho)**
 
-En Python3 instalar el módulo paho-mqtt. Crear el programa anterior y ejecutarlo con Python. Para ver los resultados es necesario tener un subscriber suscrito al topic en el correspondiente broker:
+En Python3 instalar el módulo paho-mqtt. Para ver los resultados es necesario tener un subscriber suscrito al topic en el correspondiente broker:
 
 ![paho_mosquitto](fig/mosquitto_paho_js.png)
+
+NOTA: El script.py que aparece en la figura anterior, se ha renombrado como [test_paho](test_paho.py)
 
 **Ejercicio: JavaScript**
 
