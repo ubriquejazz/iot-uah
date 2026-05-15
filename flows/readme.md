@@ -6,7 +6,9 @@ Se crea esta carpeta para respaldo de los flujos que corren en la RPi4:
 
 Para cargarlos, pulsar el boton de importar y elegir dicha ruta.
 
-## 3. Introduccion
+## 2. MQTT y NodeJS
+
+## 3. RPi4
 
 - Un LED (instalar el paquete ‘node-red-contrib-ui-led’) que indique el estado del GPIO18.
 - Dos button (dasshboard) que permitan controlar el GPIO18.
