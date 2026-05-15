@@ -6,7 +6,7 @@ Juan M. Gago (27/05)
 
 En esta práctica se introducen las comunicaciones MQTT con seguridad (autenticación).
 
-## 1. MQTT con user/password
+## A1. MQTT con user/password
 
 En primer lugar es necesario añadir al fichero de configuración del broker (mosquitto_passwd.conf) lo siguiente:
 
@@ -35,7 +35,7 @@ Captura del paquete de conexión para ver user y password en texto plano:
 
 ![](fig/wshark_p4.png)
 
-## 2. MQTT con user/password en Node-RED
+## A2. MQTT con user/password en Node-RED
 
 Instalar Node.js y node-RED en Windows. Crear en Node-RED un flow con nodos MQTTs con seguridad user/password:
 
@@ -45,15 +45,27 @@ Capturamos la comunicación entre ambos nodos
 
 ![wireshark]()
 
-## 3. Seguridad en MQTT usando SSL/TSL
+## B3. Seguridad en MQTT usando SSL/TSL
 
 Instalar OpenSSL y crear los diferentes certificados y keys. 
 
-![placeholder]()
+![server]()
+
+<img src="fig/cert_server.png" style="zoom:33%;" />
+
+De la autoridad certificadora (ca.crt)
+
+<img src="fig/cert_CA.png" alt="autoridad" style="zoom: 33%;" />
+
+Ahora firmamos el certificado del broker con el certificado ca.crt:
+
+<img src="fig/cert_firma.png" alt="firma" style="zoom:50%;" />
 
 Arrancar mosquitto broker con seguridad SSL/TSL y comunicar los clientes mosquitto_pub y mosquitto_sub (consola). 
 
-Capturar los paquetes obtenidos y vemos que son indescifrables:
+
+
+Capturar los paquetes obtenidos y ver que son indescifrables:
 
 ![wireshark]()
 
