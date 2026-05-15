@@ -1,9 +1,4 @@
-from umqttsimple import MQTTClient
-import ubinascii
 
-mqtt_server = '192.168.1.144'
-
-client_id = ubinascii.hexlify(machine.unique_id())
 topic_sub = b'notification'
 topic_pub = b'hello'
 
@@ -39,9 +34,9 @@ while True:
   try:
     client.check_msg()
     if (time.time() - last_sensor_reading) > readings_interval:
-      msg = b'Hello #%d' % counter
+      msg = b'Hello #%d' % count
       client.publish(topic_pub, msg)
-      last_message = time.time()
+      last_sensor_reading = time.time()
       count += 1
   except OSError as e:
     restart_and_reconnect()
