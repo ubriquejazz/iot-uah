@@ -1,10 +1,14 @@
-// msg.payload arrives as a string/buffer from the MQTT node (e.g., "452")
-let decimes = parseInt(msg.payload);
-
-if (!isNaN(decimes)) {
-    msg.payload = decimes / 10;       
+// msg.payload is now an object: { temp: 452, count: 0 }
+if (msg.payload && msg.payload.hasOwnProperty('temp')) {
+    
+    let celsius = msg.payload.temp / 10;
+    let currentCount = msg.payload.count;
+    msg.payload = {
+        temperature_C: celsius,
+        message_count: currentCount
+    };    
     return msg;
 } else {
-    node.error("Received invalid temperature data: " + msg.payload);
-    return null; // Don't pass the message forward if it's corrupted
+    node.error("Invalid JSON data packet received");
+    return null;
 }

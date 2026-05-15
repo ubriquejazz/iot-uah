@@ -1,4 +1,5 @@
 import urandom
+import ujson
 
 topic_pub = b'hello'
 # b'sensor/temperature'  # Changed to a more descriptive topic
@@ -28,8 +29,12 @@ while True:
   try:
     client.check_msg()
     if (time.time() - last_sensor_reading) > readings_interval:     
-      simulated_temp = urandom.randint(-100, 900)      
-      msg = b'%d' % simulated_temp
+      simulated_temp = urandom.randint(-100, 500)      
+      msg = b'%d' % simulated_temp  
+      payload = {
+        "temp": simulated_temp,
+        "count": count}
+      msg = ujson.dumps(payload).encode('utf-8')      
       #msg = b'Hello #%d' % count      
       client.publish(topic_pub, msg)
       last_sensor_reading = time.time()
