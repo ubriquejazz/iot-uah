@@ -1,4 +1,4 @@
-# BLE 
+# BLE / Micro:bit
 
 Juan Manuel Gago
 
@@ -15,20 +15,7 @@ El objetivo de esta práctica es ver como leer, escribir, cambiar notificación 
 En la figura siguiente se muestra el aspecto de **[makecode](https://makecode.microbit.org/#editor)** y la aplicación BLE usada en esta práctica:
 
 ```
-bluetooth.onBluetoothConnected(function () {
-    basic.showIcon(IconNames.SmallSquare)
-})
-bluetooth.onBluetoothDisconnected(function () {
-    basic.showIcon(IconNames.Square)
-})
-input.onButtonPressed(Button.A, function () {
-    basic.showIcon(IconNames.Chessboard)
-    bluetooth.uartWriteString("Hola desde BLE")
-})
-bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
-    basic.showIcon(IconNames.Heart)
-})
-
+...
 bluetooth.advertiseUid(9,0,7,true)
 bluetooth.setTransmitPower(7)
 bluetooth.startUartService()
@@ -41,13 +28,11 @@ basic.showIcon(IconNames.Square)
 
 **EJERCICIO 1. nRFConnect**
 
-- Conectar la placa Microbit a Windows 10; Windows instalará automáticamente los driver para el puerto COM virtual y para el debugger
-- Instalar **nRFConnect**, abrirlo e instalar el paquete ‘Bluetooth Low Energy’.
-  - Conectar el dongle nRF52840.
-  - Abrir (desde nRFConnect) ‘Bluetooth Low Energy’ y conectarse con la MicroBit
-        - Comprobar MAC y los servicios LED y Accelerometer.
-            - Poner en ON todos los LEDs de las filas 1 y 5.
-            - Modificar el periodo de actualización de los datos del acelerómetro y modificar su descriptor para que permita notificación.
+Instalar **nRFConnect**, abrirlo e instalar el paquete ‘Bluetooth Low Energy’.
+
+- Conectar el dongle nRF52840.
+- Abrir (desde nRFConnect) ‘Bluetooth Low Energy’ y conectarse con la MicroBit
+- Comprobar MAC y los servicios LED y Accelerometer.
 
 ![](fig/nrfConnect.png)
 
@@ -77,10 +62,12 @@ Vamos a enviar 5 bytes a la característica ‘LED matrix state’:
 
 **EJERCICIO 4. Javascript: Acelerometro**
 
-- Comprobar el funcionamiento del [código](ex04.js), cambiando el periodo de notificación a 160 ms.
-- Grabar un [video](https://github.com/asciinema/asciinema) en el que se muestren los resultados por la consola de Mobaxterm.
+- Comprobar el funcionamiento del [código](code/ex04.js), cambiando el periodo de notificación a 160 ms.
+- Tomar una caputra donde se muestren los resultados por la consola de Mobaxterm.
 
 ![](fig/script.PNG)
+
+Nota: el script [test_ble](test_ble.js) es el original del handout. Aqui usamos la version procesada por la IA.
 
 **EJERCICIO 5. Propuesta OPCIONAL.**
 
