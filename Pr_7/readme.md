@@ -6,11 +6,17 @@ Juan M. Gago (27/05)
 
 ## A. Micropython
 
-Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. Modificar el [ejemplo](code/MQTT_Hello/main.py) de comunicación MQTT para simular el envío de datos a un servidor Node-RED.
+Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. Modificar el ejempl *Hello_MQTT* para enviar periodicamente los datos de corriente de un sensor I2C (similar al ina219).El [codigo](code/MQTT_Hello/main.py) usa el driver INA3221.py:
 
-![](fig/hello_mqtt.png)
+<img src="fig/esp_i2c.png" style="zoom:33%;" />
 
-- Se simularán dos sensores en el ESP32 y se enviarán los datos a Node-RED cada 4 s.
+En node-red se ha creado el flujo que lee el JSON enviado y separa el campo **temp** y lo muestra en un chart; un numerico para el campo **cont** (contador de muestras, cada 6s):
+
+![pi4:1880/ui]()
+
+Nota: en vez de **temp** se es esta usando la funcion **get_current**(). Se puede ir jugando con el resto de funciones de la API: get_bus_voltage(), get_shunt_voltage(), etc.
+
+
 
 ## B. STM32L475E - Aplicación MQTT genérica
 
@@ -41,3 +47,7 @@ Compilar el proyecto con STM32CubeIDE (es necesario convertirlo de SW4STM32)
 El objetivo de esta parte de la practica es aprender a configurar una cuenta en **Grovestreams** y visualizar los datos enviados por la aplicación de referencia de ST. Si se desea, igual que en el ejercicio 1, se pueden añadir un **contador** a los datos enviados por el client.
 
 ![](fig/groove.png)
+
+## Referencias
+
+- [ESP32](https://raw.githubusercontent.com/RuiSantosdotme/ESP32-Course/master/img/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs.png) Wroom32 
