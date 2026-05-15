@@ -5,26 +5,22 @@ from signal import pause
 # --- Config ---
 BROKER = "pi4"
 CLIENT_ID = "RPi_e0d3738fd6ed"
-TOPIC_DATA = "zero/threshold"
+TOPIC_DATA = "zero/thold"
 TOPIC_RELAY = "zero/relay"
 
 # --- Hardware ---
 # We use 'LED' for the relay because it has simple .on() and .off() methods
-relay = LED(18) 
+relay = LED(16) 
 relay.off() # Ensure it starts off
 
 buttons = {
-    "A": Button(17),
-    "B": Button(27),
-    "C": Button(22),
-    "D": Button(23)
+    "A": Button(20),
+    "B": Button(21)
 }
 
 values = {
     "A": "23.7", 
-    "B": "25.0", 
-    "C": "28.5", 
-    "D": "30.0"
+    "B": "30.0"
 }
 
 # --- MQTT Logic ---
