@@ -49,7 +49,7 @@ Capturamos la comunicación entre ambos nodos
 
 ## B1. Seguridad en MQTT usando SSL/TSL
 
-### Mosquitto Broker
+### Configuracion del Broker
 
 Instalar OpenSSL y crear los diferentes certificados del servidor:
 
@@ -68,30 +68,32 @@ Ahora firmamos el certificado del broker con el certificado ca.crt:
 
 **Nota**: siempre usamos el mismo Common Name (la IP de la raspberry en nuestra red).
 
-Ahora tenemos que ir al directorio /etc/mosquitto y colocar las keys y certificado. Pero para no hacerlo manual, hemos automatizado los pasos en un script que hemos llamado [instala_certs](instala_certs.sh). 
+Ahora tenemos que ir al directorio /etc/mosquitto y colocar las keys y certificado. Pero para no hacerlo manual, hemos automatizado los pasos en un script que hemos llamado [instala_certs](code/instala_certs.sh). 
 
 Al final, arrancar el mosquitto broker con seguridad SSL/TSL sin mayor problemas.
-
 
 ### Clientes
 
 Los clientes mosquitto_pub y mosquitto_sub se empaquetan en unos scripts que facilitan su uso:
 
-    $ ./subscriber.sh tema /etc/mosquitto/ca_certificate/ca.crt
-    $ ./client.sh tema "hola a todos!" /etc/mosquitto/ca_certificate/ca.crt
+    $ ./subscriber.sh tema /etc/mosquitto/ca_certificates/ca.crt
+    $ ./client.sh tema "hola a todos!" /etc/mosquitto/ca_certificates/ca.crt
 
 **Ojo**! Tanto el script para escuchar [subscriber](code/subscriber.sh) como el que publica mensajes [publisher](code/client.sh) en ese topic,  hacen uso de la IP que hemos configurado los certificados.
 
-
+![](fig/tema_consola.png)
 
 ## B2. Seguridad usando SSL/TSL en Node-RED
 
 Modificar el flow del ejercicio anterior y comprobar su correcto funcionamiento con SSL/TSL.
 
-![](fig/flow_p4.png)
+<img src="fig/nred_setup_01.png" style="zoom:33%;" />
 
-Capturar la pantalla de debug de Node-RED para añadir evidencia de funcionamiento:
+Hemos llamado **none** a la configuracion siguiente:
 
-![msg_dbg]()
+<img src="fig/nred_setup_02.png" alt="msg_dbg" style="zoom:33%;" />
 
-NOTA: No hay nada que capturar debido al error en la seccion B1
+NOTA: Hemos introducido el fichero ca.crt y la password que usamos en su creación pero sin éxito. En todo momento el cliente MQTT mostraba el mensaje connecting...
+
+
+
