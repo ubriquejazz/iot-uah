@@ -10,6 +10,10 @@ Se propone el desarrollo de una aplicación para la monitorización de la carga 
 - Raspberry Zero (pizero) con un rele y cuatro pulsadores
 - ESP32 WROOM con un sensor INA (simula el SoC de una bateria)
 - B-L475E-IOT01A Discovery kit.
+- Relay 5VDC (JQC-3FF-S-Z)
+- Botones ???
+
+![](fig/esquema.png)
 
 ### Nodo 0 (pizero)
 
@@ -48,8 +52,8 @@ A parte de Node-Red, la RPi4 tendra otro servidor web local con el valor de volt
 
 Suponemos que el ESP32 esta justo al lado de una bateria la cual se quiere monitorizar.
 
-El rele de la pizero simula una alarma. Se activa cuando el valor de voltage medido por el INA3321 es menor que un threshold. Asi mismo el valor del threshold viene determinado por la pulsacion de los cuatro switches segun la tabla:
+El rele de la pizero simula una alarma. Se activa cuando el valor de voltage medido por el INA3321 es menor que un threshold. Asi mismo el valor del threshold viene determinado por la pulsacion de los dos switches segun la tabla:
 
 La pizero publica este valor en el topic_threshold. Suponemos que la pizero es el interfaz HMI del sistema, con lo que no tiene capacidad de decision sobre el rele (no esta subscrita al topic_esp).
 
-En node-red se muestra en un gauge el valor de voltage / temperatura de la bateria y valor del threshold. La funcion **safety** es la que actua sobre el rele en el caso de que el voltage es menor que el threshold o cualquiera de las temperaturas es critica.
+En node-red se muestra en un gauge el valor de voltage / temperatura de la bateria y valor del threshold. La funcion **safety** es la que actua sobre el rele en el caso de que el voltage sea menor que el threshold o cualquiera de las temperaturas es critica.
