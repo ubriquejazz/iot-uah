@@ -51,49 +51,38 @@ Capturamos la comunicación entre ambos nodos
 
 ### Mosquitto Broker
 
-Instalar OpenSSL y crear los diferentes certificados y keys. 
+Instalar OpenSSL y crear los diferentes certificados del servidor:
 
 <img src="fig/cert_server.png" style="zoom:33%;" />
 
-De la autoridad certificadora (ca.crt)
+De la autoridad certificadora (con password):
 
 <img src="fig/cert_CA.png" alt="autoridad" style="zoom: 33%;" />
 
 Ahora firmamos el certificado del broker con el certificado ca.crt:
 
-<img src="fig/cert_firma.png" alt="firma" style="zoom:50%;" />
+    openssl x509 -req -in server.csr -CA ca.crt
+    Certificate request self-signature ok
+    subject=C = ES, ST = Some-State, O = Internet Widgits Pty Ltd, CN = 192.168.1.104
+    Enter pass phrase for ca.key:
 
-Vamos al directorio /etc/mosquitto y colocamos las keys y certificado
+**Nota**: siempre usamos el mismo Common Name (la IP de la raspberry en nuestra red).
 
-- ca_certificates/ aqui va el fichero **ca.crt** 
-- certs/ aqui va los server certificates (chmod a+r)
+Ahora tenemos que ir al directorio /etc/mosquitto y colocar las keys y certificado. Pero para no hacerlo manual, hemos automatizado los pasos en un script que hemos llamado [instala_certs](instala_certs.sh). 
 
-El fichero mosquitto.conf quedaria asi:
+Al final, arrancar el mosquitto broker con seguridad SSL/TSL sin mayor problemas.
 
-    cafile /etc/mosquitto/ca_certificates/ca.crt
-    certfile /etc/mosquitto/certs/server.crt
-    keyfile /etc/mosquitto/certs/server.key
-    tls_version tlsv1.2
 
-Al arrancar mosquitto broker con seguridad SSL/TSL, se obtiene un error:
+### Clientes
 
-    sudo systemctl restart mosquitto.service
-    Job for mosquitto.service failed because the control process exited with error code.
-    See "systemctl status mosquitto.service" and "journalctl -xeu mosquitto.service" for details.
+Los clientes mosquitto_pub y mosquitto_sub se empaquetan en unos scripts que facilitan su uso:
 
-### Mosquitto Clients
+    $ ./subscriber.sh tema /etc/mosquitto/ca_certificate/ca.crt
+    $ ./client.sh tema "hola a todos!" /etc/mosquitto/ca_certificate/ca.crt
 
-Comunicar los clientes mosquitto_pub y mosquitto_sub (consola). 
+**Ojo**! Tanto el script para escuchar [subscriber](code/subscriber.sh) como el que publica mensajes [publisher](code/client.sh) en ese topic,  hacen uso de la IP que hemos configurado los certificados.
 
-- Script para escuchar un topic [subscriber](code/subscriber.sh)
-- Script para publicar un mensaje [publisher](code/client.sh)
 
-Capturar los paquetes obtenidos y ver que son indescifrables:
-
-    $ ./subscriber.sh tema ca.crt
-    $ ./client.sh tema "hola a todos!" ca.crt
-
-![wireshark]()
 
 ## B2. Seguridad usando SSL/TSL en Node-RED
 

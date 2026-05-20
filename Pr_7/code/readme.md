@@ -10,9 +10,11 @@ Este ejemplo no usa Micropython!!
 
 ## MQTT Hello World
 
-Ejemplo simple de comunicación MQTT modificado!!
+Ejemplo de comunicación MQTT modificado!!
 
-- ESP#1 publishes messages on the **hello** topic. It publishes a “Hello” message followed by a counter (Hello 1, Hello 2, Hello 3, …). It publishes a new message every 5 seconds.
+- ESP#1 publishes messages on the **hello** topic.
+- It publishes a “Hello” message followed by a counter (Hello 1, Hello 2, Hello 3, …).
+- It publishes a new message every 5 seconds.
 
 ## Web Server Output
 
