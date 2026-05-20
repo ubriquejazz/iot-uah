@@ -85,7 +85,7 @@ Los clientes mosquitto_pub y mosquitto_sub se empaquetan en unos scripts que fac
 
 ## B2. Seguridad usando SSL/TSL en Node-RED
 
-Modificar el flow del ejercicio anterior y comprobar su correcto funcionamiento con SSL/TSL.
+Se modifica el flow del ejercicio anterior para ver el funcionamiento con SSL/TSL.
 
 <img src="fig/nred_setup_01.png" style="zoom:33%;" />
 
@@ -93,7 +93,10 @@ Hemos llamado **none** a la configuracion siguiente:
 
 <img src="fig/nred_setup_02.png" alt="msg_dbg" style="zoom:33%;" />
 
-NOTA: Hemos introducido el fichero ca.crt y la password que usamos en su creación pero sin éxito. En todo momento el cliente MQTT mostraba el mensaje connecting...
+NOTA: Hemos introducido el fichero ca.crt y la password que usamos en su creación pero sin éxito. 
 
+Hemos indicado que no use ficheros locales ni que verifique el certificado del servidor como requeria el ejercicio:
 
+![](fig/nred_setup_10.png)
 
+En todo momento el cliente MQTT mostraba el mensaje connecting...
