@@ -38,18 +38,15 @@ A parte de Node-Red, la RPi4 tendra otro servidor web local con el valor de volt
 
 - Si esta por debajo del **threshold** se muestra de color rojo (negro de otro modo). 
 - Internamente, un cliente se subscribe a los topics: topic_esp y topic_threshold (pizero).
-- Puede ser de ayuda este proyecto de un [boiler](github.com/ubriquejazz/domotica/Boiler)
 - Habria que copiar [Pr6](../Pr_6/code/) a la carpeta /var/www/html y reiniciar el servidor
 
-
-    sudo service lighttpd force-reload
+`sudo service lighttpd force-reload`
 
 ### Nodo 0 (pizero)
 
 La pizero ofrecerá 2 señales digitales (GPIO) de entrada y otra de salida. Tanto la lectura de GPIOs de entrada como la activación del GPIO de salida se controlarán con mensajes MQTT.
 
 - topic_relay, topic_threshold (controlado por los cuatro switches)
-- Ver codigo [aqui](code/main_zero.py)
 
 ### Nodo 1 (esp)
 
@@ -57,7 +54,6 @@ El ESP32 se conectará a una WiFi (TBC). Cada 4 s enviará el valor de **dos sen
 
 - Sensor I2C **INA3321** (modo voltage)
 - Sensor de temperatura con ADC
-- Ver codigo [aqui](../Pr_7/code/MQTT_Hello/main.py)
 
 ### Nodo 2 (disco)
 
@@ -78,6 +74,6 @@ En node-red se muestra en un gauge el valor de voltage / temperatura de la bater
 1. Configuracion de NodeRed - [Pr3](../Pr_3/code/ex05.md)
 1. Configuracion del Broker - [Pr5](../Pr_5/code/mosquitto.conf) 
 1. Servidor lighttp -  [Pr6](../Pr_6/code/)
-1. Micropython del Nodo 1 - [Pr7](../Pr_7/code/MQTT_Hello/main.py)
-1. Micropython del Nodo 2 - [TBC]
-1. Python de la pizero - [aqui](code/main_zero.py)
+1. Codigo del Nodo 0 - [PrX](code/main_zero.py)
+1. Codigo del Nodo 1 - [Pr7](../Pr_7/code/MQTT_Hello/main.py)
+1. Codigo del Nodo 2 - [TBC]
