@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "const config = $(cat config.json);" > config.js
+echo "export default $(cat config.json);" > config.js
+mv config.js Pr_Final/rpi4
