@@ -78,13 +78,13 @@ El B-L475E-IOT01A Discovery kit se conectará a una WiFi (TBC). Cada vez que se 
 
 ## Codigo empleado
 
-1. Configuracion de NodeRed - [Pr3](../Pr_3/code/ex05.md)
+1. Configuracion de NodeRed - rpi4/nred_safety.js
 
-1. Configuracion del Broker y Server - [Pr6](../Pr_6/code/mosquitto.conf) 
+1. Configuracion del Broker y Server - rpi4/mosquitto.conf
 
-1. Codigo del Nodo 0 - [PrX](code/main_zero.py) (Zero)
+1. Codigo del Nodo 0 - zero/main_zero.py
 
-1. Codigo del Nodo 1 - [Pr7](../Pr_7/code/main.py) (ESP32)
+1. Codigo del Nodo 1 - esp32/main.py
 
 1. Codigo del Nodo 2 - [TBC]
 
