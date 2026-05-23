@@ -13,11 +13,17 @@ A continuación se muestran varios ejemplos de ficheros HTML que pretenden ense�
 6. Representa los valores en una tabla
 7. Visualización en barra horizontal
 
+
+
 ## Ejemplo 4
 
 Se introduce un cliente MQTT
 - Lee el topic /testtopic/nodered/1 del servidor bróker.emqx.io:8083
 - Utiliza la librería Cliente MQTT sobre [WebSockets](http://www.steves-internet-guide.com/using-javascript-mqtt-clientwebsockets)
+- Se podria haber usado un script externo:
+
+
+    <script src="functions.js" type="text/javascript"></script>
 
 ## Ejemplo 5
 

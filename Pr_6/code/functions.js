@@ -8,7 +8,7 @@ function startConnect() {
     var clientID = "clientID-" + parseInt(Math.random() * 1000);
 
     // Fetch the hostname/IP address and port number from the form
-    var host = "192.168.1.98";  //document.getElementById("host").value;
+    var host = "192.168.1.104";  //document.getElementById("host").value;
     var port = "8080"; 			//document.getElementById("port").value;
 
     // Print output for the user in the messages div
@@ -36,16 +36,7 @@ function onConnect() {
     messagesDiv.innerHTML += '<span>Subscribing to: home/#</span><br/>';
 
     // Subscribe to the requested topic
-    client.subscribe("home/#");
-
-    // Send update commands
-    var message1 = new Paho.MQTT.Message("OFF");
-    message1.destinationName = "home/relay/status";
-    client.send(message1);
-
-    var message2 = new Paho.MQTT.Message("");
-    message2.destinationName = "home/params/get";
-    client.send(message2);
+    client.subscribe("topic_esp");  
 }
 
 // Called when the client loses its connection
@@ -64,7 +55,9 @@ function onMessageArrived(message) {
     // Extract topic and payload value from the message
     var topic = message.destinationName;
     var value = message.payloadString;
-    
+
+    var lectura = JSON.parse(message.payloadString);
+
     // Get the current date and time
     var date = new Date();
     
@@ -76,25 +69,9 @@ function onMessageArrived(message) {
         topic + '  | ' + value + '</span><br/>';
 
     // Call the updateScroll function
-    updateScroll();
-    
-    // Update specific HTML elements based on the received topic and value
-    switch (topic) {
+    updateScroll(lectura.iluminacion); 
+    updateTemperature(lectura.temperatura); 
 
-        case "home/relay/status":
-            document.getElementById("boilerStatus").innerHTML = value;
-            if (value == "OFF") {
-                document.getElementById("boilerStatus").style.color = "#dd0000";
-            } else if (value == "ON") {
-                document.getElementById("boilerStatus").style.color = "#00dd00";
-            } else {
-                document.getElementById("boilerStatus").style.color = "#3d434c";
-            }
-            break;
-        default:
-            // Handle other topics if needed
-            break;
-    }
 }
 
 // Called when the disconnection button is pressed
@@ -105,7 +82,19 @@ function startDisconnect() {
 }
 
 // Updates #messages div to auto-scroll
-function updateScroll() {
-    var element = document.getElementById("messages");
-    element.scrollTop = element.scrollHeight;
+function updateScroll(iluminacion) {
+    document.getElementById("iluminacion").innerHTML = iluminacion + " mA";
+    // cambia la saturación de color en función de la iluminación
+    document.getElementById("ilu").style.backgroundColor = "hsl(50, " + iluminacion + "%, 49%)";
+
+}
+
+// example 7
+function updateTemperature(temperatura){
+    document.getElementById("temperatura").innerHTML = temperatura + " &ordm;C";
+    // Cambia el color y el tamaño en función de la temperatura de azul a rojo
+    color_R=(temperatura/100.0)*255;
+    color_B=((100.0-temperatura)/100)*255;
+    document.getElementById("temp").style.backgroundColor = "rgb("+color_R+",0,"+color_B+")";
+    document.getElementById("temp").style.width=""+temperatura+"px";
 }
