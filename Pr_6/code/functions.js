@@ -2,7 +2,10 @@ var client = null;
 
 // Called after form input is processed
 function startConnect() {
-    document.getElementById("boilerStatus").style.color = "#3d434c";
+    
+    var status = document.getElementById("boilerStatus");
+    status.style.color = "#f1c40f"; // Yellow
+    status.innerText = "● Conectando...";
 
     // Generate a random client ID
     var clientID = "clientID-" + parseInt(Math.random() * 1000);
@@ -33,7 +36,11 @@ function subscribe(topic) {
 
 // Called when the client connects
 function onConnect() {
-    document.getElementById("boilerStatus").style.color = "#3d434c";
+    
+    var status = document.getElementById("boilerStatus");
+    status.style.color = "#2ecc71"; // Green
+    status.innerText = "● Conectado";
+
     // Subscribe to the requested topic
     subscribe("topic_esp");
     subscribe("topic_disco");
@@ -43,6 +50,11 @@ function onConnect() {
 
 // Called when the client loses its connection
 function onConnectionLost(responseObject) {
+    
+    var status = document.getElementById("boilerStatus");
+    status.style.color = "#e74c3c"; // Red
+    status.innerText = "● Desconectado";
+    
     document.getElementById("messages").innerHTML += '<span>ERROR: Connection lost</span><br/>';
     if (responseObject.errorCode !== 0) {
         document.getElementById("messages").innerHTML += '<span>ERROR: ' + + responseObject.errorMessage + '</span><br/>';
@@ -78,7 +90,6 @@ function onMessageArrived(message) {
 
 // Called when the disconnection button is pressed
 function startDisconnect() {
-    document.getElementById("boilerStatus").style.color = "#3d434c";
     var messagesDiv = document.getElementById("messages");
     messagesDiv.innerHTML += '<span>Disconnected</span><br/>';
     client.disconnect();

@@ -10,14 +10,7 @@
 </head>
 <body>
     <h1>Lectura de sensores</h1>
-    <input type="button" class="button_large" onclick="startConnect()" value="Conectar">
-    <input type="button" class="button_large" onclick="startDisconnect()" value="Desconectar">
     <table>
-        <tr>
-            <td>Estado</td>
-            <td><textarea rows="1" class="areaoftext" cols="7" id="boilerStatus" disabled></textarea></td>
-            <td></td>
-        </tr>
         <tr>
             <td>Temperatura:</td>
             <td id="temperatura">27 &ordm;C</td>
@@ -34,6 +27,10 @@
         </tr>
    </table>
    <br><br><br>
+   <input type="button" class="button_large" onclick="startConnect()" value="Conectar">
+   <input type="button" class="button_large" onclick="startDisconnect()" value="Desconectar">
+   <textarea rows="1" class="areaoftext" id="boilerStatus" disabled></textarea>
+   <br>
    <div id="messages"></div>
 </body>
 </html>
