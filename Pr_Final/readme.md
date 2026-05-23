@@ -26,9 +26,9 @@ El rele de la pizero simula una alarma. Se activa cuando el valor de voltage med
 
 La pizero publica este valor en el topic_threshold. Suponemos que la pizero es solo el interfaz HMI del sistema, con lo que no tiene capacidad de decision sobre el rele (no esta subscrita al topic_esp).
 
-En node-red se muestra en un gauge el valor de voltage / temperatura de la bateria y valor del threshold. La funcion **safety** es la que actua sobre el rele en el caso de que el voltage sea menor que el threshold o cualquiera de las temperaturas es critica.
+En node-red se muestra en un gauge el valor de voltage / temperatura de la bateria y valor del threshold. 
 
-A parte de Node-Red, la RPi4 tendra otro servidor web local con el valor de corriente medido. Si esta por debajo del **threshold** se muestra de color azul (rojo de otro modo). 
+A parte de Node-Red, la RPi4 tendra otro servidor web local con el valor de corriente medido. Si esta por debajo del **threshold** se muestra de color azul (rojo de otro modo). La funcion **safety** es la que actua sobre el rele en el caso de que la corriente sea menor que el threshold o cualquiera de las temperaturas es critica.
 
 ## Componentes
 

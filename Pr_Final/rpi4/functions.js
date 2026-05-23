@@ -1,7 +1,6 @@
 import config from './config.js';
 var client = null;
-var current_I = 1.0;
-var current_T = 20.0;
+var minCurrent = 20.0;
 
 // Called after form input is processed
 function startConnect() {
@@ -91,13 +90,13 @@ function onMessageArrived(message) {
 
         case config.topic_thold:
             console.log("Recibido threshold (zero)...");
-            // current_T = lectura.thold;
+            // minCurrent = lectura.thold;
             break;
 
         case config.topic_esp:
             console.log("Recibido datos de corriente del ESP32.");
-            current_I = lectura.temp;
-            updateCurrent(lectura.temp, current_T); 
+            updateCurrent(lectura.temp, minCurrent); 
+            safety(lectura.temp, minCurrent); 
             document.getElementById("timestamp").innerHTML = lectura.count;
             break;
 
@@ -150,4 +149,12 @@ function updateTemperature(temperatura) {
     
     // Update the progress bar width
     document.getElementById("temp").style.width = tempNum + "px";
+}
+
+function safety(current, min) {
+
+    if (current < min) {
+        console.error("To low current:", corriente);
+        // publish en config["topic_relay"]
+    }
 }
