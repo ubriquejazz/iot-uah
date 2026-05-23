@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import json
 from gpiozero import Button, LED
 from signal import pause
 
@@ -7,6 +8,10 @@ BROKER = "pi4"
 CLIENT_ID = "RPi_e0d3738fd6ed"
 TOPIC_DATA = "zero/thold"
 TOPIC_RELAY = "zero/relay"
+
+with open('conf.json', 'r') as f:
+    dic = json.load(f)
+    f.close()
 
 # --- Hardware ---
 # We use 'LED' for the relay because it has simple .on() and .off() methods

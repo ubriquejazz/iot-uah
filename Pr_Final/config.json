@@ -1,0 +1,6 @@
+{
+    "TOPIC_THOLD" : "zero/thold",
+    "TOPIC_RELAY" : "zero/relay",
+    "TOPIC_CURR" : "esp/sensor",
+    "TOPIC_TEMP" : "disco/sensor"
+}
