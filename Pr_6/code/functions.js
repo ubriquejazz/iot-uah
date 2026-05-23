@@ -6,10 +6,8 @@ function startConnect() {
 
     // Generate a random client ID
     var clientID = "clientID-" + parseInt(Math.random() * 1000);
-
-    // Fetch the hostname/IP address and port number from the form
     var host = "192.168.1.104";  //document.getElementById("host").value;
-    var port = "8080"; 			//document.getElementById("port").value;
+    var port = "8083"; 			//document.getElementById("port").value;
 
     // Print output for the user in the messages div
     var messagesDiv = document.getElementById("messages");
@@ -27,16 +25,20 @@ function startConnect() {
     });
 }
 
+function subscribe(topic) { 
+    var messagesDiv = document.getElementById("messages");
+    client.subscribe(topic);  
+    messagesDiv.innerHTML += `<span>Subscribing to: ${topic}</span><br/>`;
+}
+
 // Called when the client connects
 function onConnect() {
     document.getElementById("boilerStatus").style.color = "#3d434c";
-
-    // Print output for the user in the messages div
-    var messagesDiv = document.getElementById("messages");
-    messagesDiv.innerHTML += '<span>Subscribing to: home/#</span><br/>';
-
     // Subscribe to the requested topic
-    client.subscribe("topic_esp");  
+    subscribe("topic_esp");
+    subscribe("topic_disco");
+    subscribe("topic_threshold");
+    subscribe("topic_relay");
 }
 
 // Called when the client loses its connection
@@ -77,8 +79,9 @@ function onMessageArrived(message) {
 // Called when the disconnection button is pressed
 function startDisconnect() {
     document.getElementById("boilerStatus").style.color = "#3d434c";
+    var messagesDiv = document.getElementById("messages");
+    messagesDiv.innerHTML += '<span>Disconnected</span><br/>';
     client.disconnect();
-    document.getElementById("messages").innerHTML += '<span>Disconnected</span><br/>';
 }
 
 // Updates #messages div to auto-scroll
@@ -86,7 +89,6 @@ function updateScroll(iluminacion) {
     document.getElementById("iluminacion").innerHTML = iluminacion + " mA";
     // cambia la saturación de color en función de la iluminación
     document.getElementById("ilu").style.backgroundColor = "hsl(50, " + iluminacion + "%, 49%)";
-
 }
 
 // example 7
