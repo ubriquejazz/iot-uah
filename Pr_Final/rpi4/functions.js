@@ -1,3 +1,4 @@
+import config from './config.js';
 var client = null;
 
 // Called after form input is processed
@@ -9,8 +10,7 @@ function startConnect() {
 
     // Generate a random client ID
     var clientID = "clientID-" + parseInt(Math.random() * 1000);
-    var host = "192.168.1.104";  //document.getElementById("host").value;
-    var port = "8083"; 			//document.getElementById("port").value;
+    var port = "8083";
 
     // Print output for the user in the messages div
     var messagesDiv = document.getElementById("messages");
@@ -18,7 +18,7 @@ function startConnect() {
     messagesDiv.innerHTML += '<span>Using the following client value: ' + clientID + '</span><br/>';
 
     // Initialize new Paho client connection, callback handlers
-    client = new Paho.MQTT.Client(host, Number(port), clientID);
+    client = new Paho.MQTT.Client(config.mqtt_server, Number(port), clientID);
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
 
@@ -42,10 +42,10 @@ function onConnect() {
     status.innerText = "● Conectado";
 
     // Subscribe to the requested topic
-    subscribe("hello");
-    subscribe("topic_disco");
-    subscribe("topic_threshold");
-    subscribe("topic_relay");
+    subscribe(config.topic_esp);
+    subscribe(config.topic_temp);
+    subscribe(config.topic_thold);
+    subscribe(config.topic_relay);
 }
 
 // Called when the client loses its connection

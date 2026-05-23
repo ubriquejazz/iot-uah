@@ -107,6 +107,12 @@ Extracto de Javascript de la RPi4
       document.getElementById("timestamp").innerHTML = lectura.count;
     }
 
+Conversion del config-file para emplearlo en el Javascript anterior (RPi4)
+
+    cd /var/www/html 
+    rem echo "const config = $(cat config.json);" > config.js
+    echo "export default $(cat config.json);" > config.js
+
 Configuracion de una crontab en la Zero:
 
     crontab -e
