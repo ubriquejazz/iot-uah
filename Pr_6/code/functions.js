@@ -42,7 +42,7 @@ function onConnect() {
     status.innerText = "● Conectado";
 
     // Subscribe to the requested topic
-    subscribe("topic_esp");
+    subscribe("hello");
     subscribe("topic_disco");
     subscribe("topic_threshold");
     subscribe("topic_relay");
@@ -54,37 +54,36 @@ function onConnectionLost(responseObject) {
     var status = document.getElementById("boilerStatus");
     status.style.color = "#e74c3c"; // Red
     status.innerText = "● Desconectado";
-    
+
     document.getElementById("messages").innerHTML += '<span>ERROR: Connection lost</span><br/>';
     if (responseObject.errorCode !== 0) {
         document.getElementById("messages").innerHTML += '<span>ERROR: ' + + responseObject.errorMessage + '</span><br/>';
     }
 }
 
-// Called when a message arrives
-function onMessageArrived(message) {
-    // Log the received message payload to the console
-    console.log("onMessageArrived: " + message.payloadString);
-    
-    // Extract topic and payload value from the message
-    var topic = message.destinationName;
-    var value = message.payloadString;
-
-    var lectura = JSON.parse(message.payloadString);
-
-    // Get the current date and time
+function debug_response(topic, value) {
     var date = new Date();
-    
-    // Append message information to the messages element
     var messagesDiv = document.getElementById("messages");
     messagesDiv.innerHTML +=
         '<span>' + date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() +
         "-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ": " +
         topic + '  | ' + value + '</span><br/>';
+}
 
-    // Call the updateScroll function
-    updateScroll(lectura.iluminacion); 
-    updateTemperature(lectura.temperatura); 
+// Called when a message arrives
+function onMessageArrived(message) {
+    // Log the received message payload to the console
+    console.log("onMessageArrived: " + message.payloadString);
+    var lectura = JSON.parse(message.payloadString);
+
+    var topic = message.destinationName;
+    var value = message.payloadString;
+    debug_response(topic, value);
+
+    {
+        updateCurrent(lectura.temp, 20.0); 
+        document.getElementById("timestamp").innerHTML = lectura.count;
+    }
 
 }
 
@@ -96,18 +95,37 @@ function startDisconnect() {
 }
 
 // Updates #messages div to auto-scroll
-function updateScroll(iluminacion) {
-    document.getElementById("iluminacion").innerHTML = iluminacion + " mA";
-    // cambia la saturación de color en función de la iluminación
-    document.getElementById("ilu").style.backgroundColor = "hsl(50, " + iluminacion + "%, 49%)";
+function updateCurrent(corriente, threshold) {
+    var tempNum = parseFloat(corriente);
+    if (isNaN(tempNum)) {
+        console.error("Invalid value received:", corriente);
+        return; 
+    }
+    document.getElementById("corriente").innerHTML = tempNum + " mA";
+
+    if (tempNum < threshold) {
+        barColor = "#3498db"; // Cold -> Blue
+    } else {
+        barColor = "#e74c3c"; // Too Hot / Danger -> Red
+    }
+    // Apply the selected color to the element
+    document.getElementById("ilu").style.backgroundColor = barColor;
+
 }
 
-// example 7
-function updateTemperature(temperatura){
-    document.getElementById("temperatura").innerHTML = temperatura + " &ordm;C";
-    // Cambia el color y el tamaño en función de la temperatura de azul a rojo
-    color_R=(temperatura/100.0)*255;
-    color_B=((100.0-temperatura)/100)*255;
-    document.getElementById("temp").style.backgroundColor = "rgb("+color_R+",0,"+color_B+")";
-    document.getElementById("temp").style.width=""+temperatura+"px";
+function updateTemperature(temperatura) {
+    var tempNum = parseFloat(temperatura);
+    if (isNaN(tempNum)) {
+        console.error("Invalid value received:", temperatura);
+        return; 
+    }
+    document.getElementById("temperatura").innerHTML = tempNum + " &ordm;C";
+    
+    // Calculate and round colors using our clean number
+    var color_R = Math.round((tempNum / 100.0) * 255);
+    var color_B = Math.round(((100.0 - tempNum) / 100.0) * 255);
+    document.getElementById("temp").style.backgroundColor = "rgb(" + color_R + ", 0, " + color_B + ")";
+    
+    // Update the progress bar width
+    document.getElementById("temp").style.width = tempNum + "px";
 }
