@@ -1,11 +1,12 @@
 # Beginners Guide To The Paho MQTT Python Client 
 # 
 import paho.mqtt.client as mqtt
+import time
 
 # 1. Configuration - Using your specific device ID
-broker_address = "127.0.0.1"
+broker_address = "192.168.1.104"
 #broker_address = "test.mosquitto.org" 
-topic = "hello"
+topic = "topic_esp"
 valor = "23.7"
 client_id = "RPi_e0d3738fd6ed" # Your unique hardware ID
 
@@ -20,7 +21,8 @@ print(f"Enviando '{valor}' a '{topic}'...")
 msg_info = client.publish(topic, valor, qos=1)
 
 # This replaces time.sleep(2) - it waits only as long as necessary
-msg_info.wait_for_publish()
+#msg_info.wait_for_publish()
+time.sleep(2)
 
 client.disconnect()
 print("Desconectado.")

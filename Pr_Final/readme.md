@@ -72,8 +72,29 @@ En node-red se muestra en un gauge el valor de voltage / temperatura de la bater
 ## Resumen del codigo 
 
 1. Configuracion de NodeRed - [Pr3](../Pr_3/code/ex05.md)
-1. Configuracion del Broker - [Pr5](../Pr_5/code/mosquitto.conf) 
+1. Configuracion del Broker - [Pr6](../Pr_6/code/mosquitto.conf) 
 1. Servidor lighttp -  [Pr6](../Pr_6/code/)
-1. Codigo del Nodo 0 - [PrX](code/main_zero.py)
-1. Codigo del Nodo 1 - [Pr7](../Pr_7/code/MQTT_Hello/main.py)
+1. Codigo del Nodo 0 - [PrX](code/main_zero.py) 
+1. Codigo del Nodo 1 - [Pr7](../Pr_7/code/main.py)
 1. Codigo del Nodo 2 - [TBC]
+
+
+
+Extracto del Micropthon Nodo 1
+
+    payload = {
+    "temp": simulated_temp,
+    "count": count}
+    msg = ujson.dumps(payload).encode('utf-8')          
+    client.publish('hello', msg)
+
+Extracto de javascript del servidor lighttp
+
+    if (topic = 'topic_disco') {
+      updateTemperature(lectura.temperatura); 
+    } else if (topic = 'hello') 
+    {
+      updateScroll(lectura.temp, 20.0); 
+      document.getElementById("timestamp").innerHTML = lectura.count;
+    }
+
