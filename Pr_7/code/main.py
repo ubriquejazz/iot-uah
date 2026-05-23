@@ -1,4 +1,5 @@
 import ujson
+from ina3221 import INA3221
 
 topic_pub = b'hello'
 # b'sensor/temperature'  # Changed to a more descriptive topic
@@ -20,7 +21,7 @@ try:
 except OSError as e:
   restart_and_reconnect()
 
-#sensor = INA3221();
+sensor = INA3221();
 last_sensor_reading = 0
 readings_interval = 6
 count = 0
@@ -29,7 +30,7 @@ while True:
   try:
     client.check_msg()
     if (time.time() - last_sensor_reading) > readings_interval:     
-      simulated_temp = 0 #sensor.get_current(1)
+      simulated_temp = sensor.get_current(1)
       
       msg = b'%d' % simulated_temp  
       payload = {
