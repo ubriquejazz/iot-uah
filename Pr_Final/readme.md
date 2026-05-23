@@ -94,7 +94,7 @@ Extracto de javascript del servidor lighttp
       updateTemperature(lectura.temperatura); 
     } else if (topic = 'hello') 
     {
-      updateScroll(lectura.temp, 20.0); 
+      updateCurrent(lectura.temp, 20.0); 
       document.getElementById("timestamp").innerHTML = lectura.count;
     }
 
