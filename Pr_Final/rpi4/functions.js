@@ -1,5 +1,7 @@
 import config from './config.js';
 var client = null;
+var current_I = 1.0;
+var current_T = 20.0;
 
 // Called after form input is processed
 function startConnect() {
@@ -79,10 +81,30 @@ function onMessageArrived(message) {
     var topic = message.destinationName;
     var value = message.payloadString;
     debug_response(topic, value);
+    var topicRecibido = topic.toString();
+    switch (topicRecibido) {
+        
+        case config.topic_temp:
+            console.log("Manejando datos del STM32.");
+            updateTemperature(lectura.temperatura); 
+            break;
 
-    {
-        updateCurrent(lectura.temp, 20.0); 
-        document.getElementById("timestamp").innerHTML = lectura.count;
+        case config.topic_thold:
+            console.log("Recibido threshold (zero)...");
+            // current_T = lectura.thold;
+            break;
+
+        case config.topic_esp:
+            console.log("Recibido datos de corriente del ESP32.");
+            current_I = lectura.temp;
+            updateCurrent(lectura.temp, current_T); 
+            document.getElementById("timestamp").innerHTML = lectura.count;
+            break;
+
+        default:
+            // Este bloque se ejecuta si el tópico no coincide con ninguno de los anteriores
+            console.log("Mensaje de un tópico no registrado: " + topicRecibido);
+            break;
     }
 
 }
