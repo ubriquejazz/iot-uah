@@ -1,6 +1,7 @@
 {
-    "TOPIC_THOLD" : "zero/thold",
-    "TOPIC_RELAY" : "zero/relay",
-    "TOPIC_CURR" : "esp/sensor",
-    "TOPIC_TEMP" : "disco/sensor"
+    "mqtt_server": "192.168.1.104",
+    "topic_esp": "esp/ina",
+    "topic_thold": "zero/thold",
+    "topic_relay": "zero/relay",
+    "topic_temp" : "disco/sensor"
 }

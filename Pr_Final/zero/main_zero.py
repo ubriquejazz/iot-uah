@@ -4,14 +4,15 @@ from gpiozero import Button, LED
 from signal import pause
 
 # --- Config ---
-BROKER = "pi4"
-CLIENT_ID = "RPi_e0d3738fd6ed"
-TOPIC_DATA = "zero/thold"
-TOPIC_RELAY = "zero/relay"
-
-with open('conf.json', 'r') as f:
-    dic = json.load(f)
+with open("config.json", "r") as f:
+    config = ujson.load(f)
     f.close()
+
+mqtt_server = config["mqtt_server"]
+topic_data = config["topic_thold"]
+topic_relay = config["topic_relay"]
+
+CLIENT_ID = "RPi_e0d3738fd6ed"
 
 # --- Hardware ---
 # We use 'LED' for the relay because it has simple .on() and .off() methods
@@ -32,7 +33,7 @@ values = {
 def on_connect(client, userdata, flags, rc, properties):
     if rc == 0:
         print("Connected! Listening for relay commands...")
-        client.subscribe(TOPIC_RELAY)
+        client.subscribe(topic_relay)
     else:
         print(f"Failed to connect. Code: {rc}")
 
@@ -51,15 +52,15 @@ def on_message(client, userdata, msg):
 
 def send_val(label):
     val = values[label]
-    client.publish(TOPIC_DATA, val, qos=1)
-    print(f"Sent {val} to {TOPIC_DATA}")
+    client.publish(topic_data, val, qos=1)
+    print(f"Sent {val} to {topic_data}")
 
 # --- Initialize ---
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, CLIENT_ID)
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(BROKER, 1883)
+client.connect(mqtt_server, 1883)
 client.loop_start()
 
 # Link the 4 buttons
@@ -68,5 +69,5 @@ for label, btn in buttons.items():
     btn.when_pressed = lambda l=label: send_val(l)
     print(f"Button {label} configured to send {values[label]}")
 
-print(f"System Ready. Send 'ON' or 'OFF' to {TOPIC_RELAY}")
+print(f"System Ready. Send 'ON' or 'OFF' to {topic_relay}")
 pause()
