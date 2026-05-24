@@ -54,12 +54,12 @@ Provided you start the server in the same directory where you have your HTML fil
 Set Permissions: Set the www-data user and group as owners of /var/www to manage files easily:
 
     sudo chown -R www-data:www-data /var/www
-    sudo chmod -R 775 /var/www
-    sudo usermod -a -G www-data pi
+    sudo usermod -a -G www-data alumno
 
-Verify: Open a web browser and enter the Raspberry Pi's IP address to see the default Lighttpd page.
-Web files are served from /var/www/html
+Verify: Open a web browser and enter the Raspberry Pi's IP address to see the default Lighttpd page.Web files are served from /var/www/html
 
-Restart/Reload:
+    sudo systemctl start lighttpd.service
 
-    sudo service lighttpd force-reload
+See the file to copy the content automatic: 
+
+    ./install_web
