@@ -1,4 +1,4 @@
-export default {
+window.APP_CONFIG = {
     "mqtt_server": "192.168.1.104",
     "topic_esp": "esp/ina",
     "topic_thold": "zero/thold",

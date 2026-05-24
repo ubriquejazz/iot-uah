@@ -1,4 +1,3 @@
-import config from './config.js';
 var client = null;
 var minCurrent = 20.0;
 
@@ -12,6 +11,7 @@ function startConnect() {
     // Generate a random client ID
     var clientID = "clientID-" + parseInt(Math.random() * 1000);
     var port = "8083";
+    var host = window.APP_CONFIG.mqtt_server; 
 
     // Print output for the user in the messages div
     var messagesDiv = document.getElementById("messages");
@@ -19,7 +19,7 @@ function startConnect() {
     messagesDiv.innerHTML += '<span>Using the following client value: ' + clientID + '</span><br/>';
 
     // Initialize new Paho client connection, callback handlers
-    client = new Paho.MQTT.Client(config.mqtt_server, Number(port), clientID);
+    client = new Paho.MQTT.Client(host, Number(port), clientID);
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
 
@@ -37,16 +37,14 @@ function subscribe(topic) {
 
 // Called when the client connects
 function onConnect() {
-    
     var status = document.getElementById("boilerStatus");
     status.style.color = "#2ecc71"; // Green
     status.innerText = "● Conectado";
 
-    // Subscribe to the requested topic
-    subscribe(config.topic_esp);
-    subscribe(config.topic_temp);
-    subscribe(config.topic_thold);
-    subscribe(config.topic_relay);
+    subscribe(window.APP_CONFIG.topic_esp);
+    subscribe(window.APP_CONFIG.topic_temp);
+    subscribe(window.APP_CONFIG.topic_thold);
+    subscribe(window.APP_CONFIG.topic_relay);    
 }
 
 // Called when the client loses its connection
@@ -81,31 +79,29 @@ function onMessageArrived(message) {
     var value = message.payloadString;
     debug_response(topic, value);
     var topicRecibido = topic.toString();
-    switch (topicRecibido) {
-        
-        case config.topic_temp:
-            console.log("Manejando datos del STM32.");
-            updateTemperature(lectura.temperatura); 
-            break;
 
-        case config.topic_thold:
-            console.log("Recibido threshold (zero)...");
-            // minCurrent = lectura.thold;
-            break;
-
-        case config.topic_esp:
-            console.log("Recibido datos de corriente del ESP32.");
-            updateCurrent(lectura.temp, minCurrent); 
-            safety(lectura.temp, minCurrent); 
-            document.getElementById("timestamp").innerHTML = lectura.count;
-            break;
-
-        default:
-            // Este bloque se ejecuta si el tópico no coincide con ninguno de los anteriores
-            console.log("Mensaje de un tópico no registrado: " + topicRecibido);
-            break;
+    // Use if/else instead of switch for dynamic configuration values
+    if (topicRecibido === window.APP_CONFIG.topic_temp) {
+        console.log("Manejando datos del STM32.");
+        updateTemperature(lectura.temperatura);
+    } 
+    else if (topicRecibido === window.APP_CONFIG.topic_thold) {
+        console.log("Recibido threshold (zero)...");
+        // Your humidity handling code here
+    } 
+    else if (topicRecibido === window.APP_CONFIG.topic_relay) {
+        console.log("Recibido estado rele (zero).");
+        // Your humidity handling code here
+    } 
+    else if (topicRecibido === window.APP_CONFIG.topic_esp) {
+        console.log("Corriente del sensor INA + ESP32.");
+        updateCurrent(lectura.temp, minCurrent); 
+        safety(lectura.temp, minCurrent); 
+        document.getElementById("timestamp").innerHTML = lectura.count;
+    }     
+    else {
+        console.log("Topic desconocido: " + topicRecibido);
     }
-
 }
 
 // Called when the disconnection button is pressed
