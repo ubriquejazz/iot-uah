@@ -88,7 +88,6 @@ El B-L475E-IOT01A Discovery kit se conectará a una WiFi (TBC). Cada vez que se 
 
 1. Codigo del Nodo 2 - [TBC]
 
-
 Extracto del Micropython (ESP32)
 
     payload = {
@@ -96,6 +95,10 @@ Extracto del Micropython (ESP32)
     "count": count}
     msg = ujson.dumps(payload).encode('utf-8')          
     client.publish('hello', msg)
+
+Simular un valor de corriente desde host (JSON)
+
+    mosquitto_pub -t "esp/ina" -m "{\"temp\":30.1,\"count\":100}"
 
 Extracto de Javascript de la RPi4
 

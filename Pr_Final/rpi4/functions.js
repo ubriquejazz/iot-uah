@@ -1,5 +1,5 @@
 var client = null;
-var minCurrent = 20.0;
+var minCurrent, actualCurrent;
 
 // Called after form input is processed
 function startConnect() {
@@ -26,6 +26,8 @@ function startConnect() {
     // Connect the client, if successful, call onConnect function
     client.connect({
         onSuccess: onConnect,
+    //    keepAliveInterval: 30, // Sends a ping every 30 seconds
+    //    timeout: 3,            // Gives up on after 3 seconds
     });
 }
 
@@ -44,7 +46,7 @@ function onConnect() {
     subscribe(window.APP_CONFIG.topic_esp);
     subscribe(window.APP_CONFIG.topic_temp);
     subscribe(window.APP_CONFIG.topic_thold);
-    subscribe(window.APP_CONFIG.topic_relay);    
+    // subscribe(window.APP_CONFIG.topic_relay);
 }
 
 // Called when the client loses its connection
@@ -71,32 +73,30 @@ function debug_response(topic, value) {
 
 // Called when a message arrives
 function onMessageArrived(message) {
-    // Log the received message payload to the console
-    console.log("onMessageArrived: " + message.payloadString);
-    var lectura = JSON.parse(message.payloadString);
-
     var topic = message.destinationName;
     var value = message.payloadString;
+    var lectura;
     debug_response(topic, value);
     var topicRecibido = topic.toString();
-
-    // Use if/else instead of switch for dynamic configuration values
     if (topicRecibido === window.APP_CONFIG.topic_temp) {
-        console.log("Manejando datos del STM32.");
+        lectura = JSON.parse(message.payloadString);
+        console.log("Manejando JSON del STM32.");
         updateTemperature(lectura.temperatura);
     } 
     else if (topicRecibido === window.APP_CONFIG.topic_thold) {
-        console.log("Recibido threshold (zero)...");
-        // Your humidity handling code here
+        console.log("Nuevo threshold (zero) = " + value);
+        minCurrent = parseFloat(value);
+        document.getElementById("threshold").innerHTML = value + " mA";
     } 
     else if (topicRecibido === window.APP_CONFIG.topic_relay) {
         console.log("Recibido estado rele (zero).");
         // Your humidity handling code here
     } 
     else if (topicRecibido === window.APP_CONFIG.topic_esp) {
-        console.log("Corriente del sensor INA + ESP32.");
-        updateCurrent(lectura.temp, minCurrent); 
-        safety(lectura.temp, minCurrent); 
+        lectura = JSON.parse(message.payloadString);
+        console.log("Corriente y timestamp del ESP32.");
+        actualCurrent = parseFloat(lectura.temp);
+        updateCurrent(actualCurrent, minCurrent); 
         document.getElementById("timestamp").innerHTML = lectura.count;
     }     
     else {
@@ -113,21 +113,17 @@ function startDisconnect() {
 
 // Updates #messages div to auto-scroll
 function updateCurrent(corriente, threshold) {
-    var tempNum = parseFloat(corriente);
-    if (isNaN(tempNum)) {
-        console.error("Invalid value received:", corriente);
-        return; 
-    }
-    document.getElementById("corriente").innerHTML = tempNum + " mA";
-
-    if (tempNum < threshold) {
+    document.getElementById("corriente").innerHTML = corriente + " mA";
+    if (corriente < threshold) {
         barColor = "#3498db"; // Cold -> Blue
+        client.publish(window.APP_CONFIG.topic_relay, 'ON'); 
+        console.error("Alarm: too low current!!");
     } else {
         barColor = "#e74c3c"; // Too Hot / Danger -> Red
+        client.publish(window.APP_CONFIG.topic_relay, 'OFF'); 
     }
     // Apply the selected color to the element
     document.getElementById("ilu").style.backgroundColor = barColor;
-
 }
 
 function updateTemperature(temperatura) {
@@ -145,12 +141,4 @@ function updateTemperature(temperatura) {
     
     // Update the progress bar width
     document.getElementById("temp").style.width = tempNum + "px";
-}
-
-function safety(current, min) {
-
-    if (current < min) {
-        console.error("To low current:", corriente);
-        // publish en config["topic_relay"]
-    }
 }
