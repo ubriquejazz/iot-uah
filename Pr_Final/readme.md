@@ -109,12 +109,9 @@ Extracto de Javascript de la RPi4
 
 Conversion del config-file para emplearlo en el Javascript anterior (RPi4)
 
-    cd /var/www/html 
-    rem echo "const config = $(cat config.json);" > config.js
-    echo "export default $(cat config.json);" > config.js
+    echo "window.APP_CONFIG = $(cat config.json);" > config.js
 
 Configuracion de una crontab en la Zero:
 
     crontab -e
-    @reboot sleep 30; cd /home/alumno/iot; /usr/bin/python3 main_zero.py
-
+    @reboot cd /home/alumno/iot; /usr/bin/python3 /home/alumno/iot/main.py > /home/alumno/iot/main.log 2>&1
