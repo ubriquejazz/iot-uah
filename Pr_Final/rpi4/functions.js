@@ -115,12 +115,12 @@ function startDisconnect() {
 function updateCurrent(corriente, threshold) {
     document.getElementById("corriente").innerHTML = corriente + " mA";
     if (corriente < threshold) {
-        barColor = "#3498db"; // Cold -> Blue
-        client.publish(window.APP_CONFIG.topic_relay, 'ON'); 
-        console.error("Alarm: too low current!!");
-    } else {
         barColor = "#e74c3c"; // Too Hot / Danger -> Red
-        client.publish(window.APP_CONFIG.topic_relay, 'OFF'); 
+        console.log("Alarm: too low current!!");
+        //client.publish(window.APP_CONFIG.topic_relay, 'ON'); 
+    } else {
+        barColor =  "#3498db"; // Cold -> Blue
+        //client.publish(window.APP_CONFIG.topic_relay, 'OFF'); 
     }
     // Apply the selected color to the element
     document.getElementById("ilu").style.backgroundColor = barColor;
