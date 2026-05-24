@@ -78,17 +78,25 @@ El B-L475E-IOT01A Discovery kit se conectará a una WiFi (TBC). Cada vez que se 
 
 ## Codigo empleado
 
-1. Configuracion de NodeRed - rpi4/nred_safety.js
+1. Contenido HTML del servidor - rpi4/functions.js
 
-1. Configuracion del Broker y Server - rpi4/mosquitto.conf
+1. Configuracion del Broker - rpi4/mosquitto.conf
 
-1. Codigo del Nodo 0 - zero/main_zero.py
+1. Codigo del Nodo 0 - zero/main.py
 
 1. Codigo del Nodo 1 - esp32/main.py
 
 1. Codigo del Nodo 2 - [TBC]
 
-Extracto del Micropython (ESP32)
+Notas:
+
+- boot.py - comun para todos lo micropythons (ESP32)
+- config.json - contiene los parametros comunes a todos los nodos
+- install_web.sh - script que copia el contenido HTML a la ruta /var/www
+
+#### Troubleshooting ESP32
+
+Extracto del Micropython para publicar el sensor de corriente (ESP32)
 
     payload = {
     "temp": simulated_temp,
@@ -96,9 +104,11 @@ Extracto del Micropython (ESP32)
     msg = ujson.dumps(payload).encode('utf-8')          
     client.publish('hello', msg)
 
-Simular un valor de corriente desde host (JSON)
+Se puede simular un valor para este JSON desde la linea de comando:
 
     mosquitto_pub -t "esp/ina" -m "{\"temp\":30.1,\"count\":100}"
+
+#### Troubleshooting Web Site
 
 Extracto de Javascript de la RPi4
 
@@ -106,15 +116,17 @@ Extracto de Javascript de la RPi4
       updateTemperature(lectura.temperatura); 
     } else if (topic === 'hello') 
     {
-      updateCurrent(lectura.temp, 20.0); 
+      updateCurrent(lectura.temp, minCurrent); 
       document.getElementById("timestamp").innerHTML = lectura.count;
     }
 
-Conversion del config-file (JSON) para emplearlo en Javascript (RPi4)
+El script install_web.sh hace la conversion del config-file (JSON) para emplearlo en Javascript (RPi4)
 
     echo "window.APP_CONFIG = $(cat config.json);" > config.js
 
-Configuracion de una crontab en la Zero que monitorize los botones:
+#### Troubleshooting Zero
+
+Configuracion de una crontab en la Zero para el monitor los botones:
 
     crontab -e
     @reboot sleep 30; cd /home/alumno/iot; /usr/bin/python3 main.py > main.log 2>&1
@@ -122,4 +134,15 @@ Configuracion de una crontab en la Zero que monitorize los botones:
 Comprobar que en esos 30s, le ha dado tiempo de iniciar el iface WiFi, antes de lanzar los clientes MQTT:
 
     tail -f ~/iot/main.log
+
+Si no, vamos a lanzar el siguiente comando
+
+```
+screen
+python3 main.py
+```
+
+You can detach from the screen session at any time by pressing **Ctrl+a** D. Si volvemos a logearnos:
+
+    screen -r 
 

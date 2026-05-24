@@ -1,9 +1,14 @@
 var client = null;
 var minCurrent, actualCurrent;
 
+function switchRelay(value) {
+    var message2 = new Paho.MQTT.Message(value);
+    message2.destinationName = window.APP_CONFIG.topic_relay;
+    client.send(message2);
+}
+
 // Called after form input is processed
 function startConnect() {
-    
     var status = document.getElementById("boilerStatus");
     status.style.color = "#f1c40f"; // Yellow
     status.innerText = "● Conectando...";
@@ -46,12 +51,12 @@ function onConnect() {
     subscribe(window.APP_CONFIG.topic_esp);
     subscribe(window.APP_CONFIG.topic_temp);
     subscribe(window.APP_CONFIG.topic_thold);
-    // subscribe(window.APP_CONFIG.topic_relay);
+    subscribe(window.APP_CONFIG.topic_relay);
+    switchRelay("OFF");
 }
 
 // Called when the client loses its connection
 function onConnectionLost(responseObject) {
-    
     var status = document.getElementById("boilerStatus");
     status.style.color = "#e74c3c"; // Red
     status.innerText = "● Desconectado";
@@ -108,6 +113,7 @@ function onMessageArrived(message) {
 function startDisconnect() {
     var messagesDiv = document.getElementById("messages");
     messagesDiv.innerHTML += '<span>Disconnected</span><br/>';
+    switchRelay("OFF");
     client.disconnect();
 }
 
@@ -117,10 +123,10 @@ function updateCurrent(corriente, threshold) {
     if (corriente < threshold) {
         barColor = "#e74c3c"; // Too Hot / Danger -> Red
         console.log("Alarm: too low current!!");
-        //client.publish(window.APP_CONFIG.topic_relay, 'ON'); 
+        switchRelay("ON");
     } else {
         barColor =  "#3498db"; // Cold -> Blue
-        //client.publish(window.APP_CONFIG.topic_relay, 'OFF'); 
+        //switchRelay("OFF");
     }
     // Apply the selected color to the element
     document.getElementById("ilu").style.backgroundColor = barColor;
