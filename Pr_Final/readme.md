@@ -99,19 +99,24 @@ Extracto del Micropython (ESP32)
 
 Extracto de Javascript de la RPi4
 
-    if (topic = 'topic_disco') {
+    if (topic === 'topic_disco') {
       updateTemperature(lectura.temperatura); 
-    } else if (topic = 'hello') 
+    } else if (topic === 'hello') 
     {
       updateCurrent(lectura.temp, 20.0); 
       document.getElementById("timestamp").innerHTML = lectura.count;
     }
 
-Conversion del config-file para emplearlo en el Javascript anterior (RPi4)
+Conversion del config-file (JSON) para emplearlo en Javascript (RPi4)
 
     echo "window.APP_CONFIG = $(cat config.json);" > config.js
 
-Configuracion de una crontab en la Zero:
+Configuracion de una crontab en la Zero que monitorize los botones:
 
     crontab -e
-    @reboot cd /home/alumno/iot; /usr/bin/python3 /home/alumno/iot/main.py > /home/alumno/iot/main.log 2>&1
+    @reboot sleep 30; cd /home/alumno/iot; /usr/bin/python3 main.py > main.log 2>&1
+
+Comprobar que en esos 30s, le ha dado tiempo de iniciar el iface WiFi, antes de lanzar los clientes MQTT:
+
+    tail -f ~/iot/main.log
+
