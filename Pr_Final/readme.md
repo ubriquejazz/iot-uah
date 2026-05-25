@@ -78,21 +78,20 @@ El B-L475E-IOT01A Discovery kit se conectará a una WiFi (TBC). Cada vez que se 
 
 ## Codigo empleado
 
-1. Contenido HTML del servidor - rpi4/functions.js
-
-1. Configuracion del Broker - rpi4/mosquitto.conf
-
-1. Codigo del Nodo 0 - zero/main.py
-
-1. Codigo del Nodo 1 - esp32/main.py
-
+1. ../config.json - contiene los parametros comunes de MQTT
+1. Configuracion del Broker y Node-RED - rpi4/mosquitto.conf, rp4/flows.json
+1. Contenido HTML del servidor web - rpi4/functions.js,  rpi4/index.html
+1. Codigo del Nodo 0 - zero/main.py, zero/releay.py
+1. Codigo del Nodo 1 - esp32/main.py, esp32/ina3221.py
 1. Codigo del Nodo 2 - [TBC]
 
-Notas:
+Scripts utiles en la carpeta raiz:
 
-- boot.py - comun para todos lo micropythons (ESP32)
-- config.json - contiene los parametros comunes a todos los nodos
+- boot.py - inicializacion comun para ESP32 (require umqttsimple)
 - install_web.sh - script que copia el contenido HTML a la ruta /var/www
+- copiar.sh - script que hace una copia y la coloca en la ruta ./node-red
+- ssh_alumno.sh - para no introducir la clave cada vez que haces login en la rpi4
+- alumno.key - private key que se copia en el host (la publica en la rpi4 por defecto)
 
 #### Troubleshooting ESP32
 
@@ -104,7 +103,7 @@ Extracto del Micropython para publicar el sensor de corriente (ESP32)
     msg = ujson.dumps(payload).encode('utf-8')          
     client.publish('hello', msg)
 
-Se puede simular un valor para este JSON desde la linea de comando:
+Se puede simular un valor JSON desde la linea de comando:
 
     mosquitto_pub -t "esp/ina" -m "{\"temp\":30.1,\"count\":100}"
 
@@ -112,17 +111,19 @@ Se puede simular un valor para este JSON desde la linea de comando:
 
 Extracto de Javascript de la RPi4
 
-    if (topic === 'topic_disco') {
+    lectura = JSON.parse(message.payloadString);
+    if (topic === window.APP_CONFIG.topic_temp){
       updateTemperature(lectura.temperatura); 
-    } else if (topic === 'hello') 
-    {
+    } else if (topic === window.APP_CONFIG.topic_esp){
       updateCurrent(lectura.temp, minCurrent); 
       document.getElementById("timestamp").innerHTML = lectura.count;
     }
 
-El script install_web.sh hace la conversion del config-file (JSON) para emplearlo en Javascript (RPi4)
+El script install_web.sh hace la conversion del config-file (JSON):
 
     echo "window.APP_CONFIG = $(cat config.json);" > config.js
+    ...
+    sudo systemctl start lighttpd.service
 
 #### Troubleshooting Zero
 
@@ -130,19 +131,17 @@ Configuracion de una crontab en la Zero para el monitor los botones:
 
     crontab -e
     @reboot sleep 30; cd /home/alumno/iot; /usr/bin/python3 main.py > main.log 2>&1
-
-Comprobar que en esos 30s, le ha dado tiempo de iniciar el iface WiFi, antes de lanzar los clientes MQTT:
-
+    ...
     tail -f ~/iot/main.log
 
-Si no, vamos a lanzar el siguiente comando
+Suponemos que en esos 30s le ha dado tiempo de iniciar el interfaz WiFi, antes de lanzar los clientes MQTT. Si no, vamos a lanzar el siguiente comando:
 
 ```
-screen
+cd /home/alumno/iot; screen
 python3 main.py
 ```
 
-You can detach from the screen session at any time by pressing **Ctrl+a** D. Si volvemos a logearnos:
+You can detach from the screen session by pressing **Ctrl+a** D. To come back:
 
     screen -r 
 

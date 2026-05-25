@@ -1,0 +1,22 @@
+[
+    {
+        "id": "dc500b41bb9f63fb",
+        "type": "function",
+        "z": "01044ea9db625827",
+        "name": "f_current",
+        "func": "var temperature = msg.payload.temp;\n\n// Create two separate messages for the chart\nvar msgTemp = { \n    topic: \"Room Temperature\", \n    payload: temperature \n};\n\n// Return both messages to be plotted as two lines\nreturn [msgTemp];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "deb44b144882c004"
+            ]
+        ]
+    }
+]
