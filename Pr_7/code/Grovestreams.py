@@ -40,9 +40,9 @@ import urllib.parse
 if __name__ == '__main__':
     
     #GroveStreams Settings
-    api_key = "ccbcbe79-c5f5-3aad-96aa-d3d0ee0c00a8"    #Change This!!!
+    api_key = "1a62c95c-d5f5-3430-b554-fc35ef1b733e"    #Change This!!!
     
-    component_id = "jmraPython"
+    component_id = "iotboard1234"
     base_url = '/api/feed?'
     
     conn = http.client.HTTPConnection('www.grovestreams.com')
