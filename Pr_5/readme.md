@@ -13,7 +13,7 @@ En primer lugar es necesario añadir al fichero de configuración del broker (mo
      == allow_anonymous false
     password_file c:\mosquitto\passwd_test.txt
 
-Hay que crear un fichero de usuarios y passwords, un par user:passwd por línea. En el fichero ‘passwd_test.txt’ sólo hay un usuario (jmra: jmra1)
+Hay que crear un fichero de usuarios y passwords, un par user:passwd por línea. En el fichero ‘passwd_test.txt’ sólo hay un usuario (alumno: clave123)
 
 Ejecutamos
 
@@ -25,25 +25,21 @@ A continuación se arranca el broker especificando el fichero de configuración 
 
 Subscriber (otra consola) 
 
-    $ mosquitto_sub -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1'
+    $ mosquitto_sub -h localhost -p 1883 -t prueba/alumno -u 'alumno' -P 'clave123'
 
 Publisher (otra consola)
 
-    $ mosquitto_pub -h localhost -p 1883 -t "jmra" -u 'jmra' -P 'jmra1' -m 'Hola people'
+    $ mosquitto_pub -h localhost -p 1883 -t prueba/alumno -u 'alumno' -P 'clave123' -m 'Mensage para Wireshark'
 
 Captura del paquete de conexión para ver user y password en texto plano: 
 
-![](fig/wshark_p4.png)
+![](fig/wshark_pc.png)
 
 ## A2. MQTT con user/password en Node-RED
 
 Instalar Node.js y node-RED en Windows. Crear en Node-RED un flow con nodos MQTTs con seguridad user/password:
 
-![](fig/flow_p4.png)
-
-Capturamos la comunicación entre ambos nodos
-
-![wireshark]()
+![](fig/flow_pc.png)
 
 ---
 
