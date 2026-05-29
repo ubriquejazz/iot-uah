@@ -30,6 +30,8 @@ function startConnect() {
 
     // Connect the client, if successful, call onConnect function
     client.connect({
+        userName: window.APP_CONFIG.mqtt_user,
+        password: window.APP_CONFIG.mqtt_pass,
         onSuccess: onConnect,
     //    keepAliveInterval: 30, // Sends a ping every 30 seconds
     //    timeout: 3,            // Gives up on after 3 seconds
