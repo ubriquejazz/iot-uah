@@ -38,7 +38,7 @@ while True:
   try:
     client.check_msg()
     if (time.time() - last_sensor_reading) > readings_interval:     
-      simulated_temp = sensor.get_current(1)
+      simulated_temp = 100 * sensor.get_current(1)
       
       msg = b'%d' % simulated_temp  
       payload = {
