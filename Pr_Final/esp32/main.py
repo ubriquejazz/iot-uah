@@ -6,12 +6,15 @@ with open("config.json", "r") as f:
     f.close()
 
 mqtt_server = config["mqtt_server"]
+mqtt_user = config["mqtt_user"]
+mqtt_pass = config["mqtt_pass"]
 topic_pub = config["topic_esp"]
 # b'sensor/temperature'  # Changed to a more descriptive topic
 
 def connect_and_subscribe():
   global client_id, mqtt_server
-  client = MQTTClient(client_id, mqtt_server)
+  #client = MQTTClient(client_id, mqtt_server)
+  client = MQTTClient(client_id, mqtt_server, user=mqtt_user, password=mqtt_pass)
   client.connect()
   print('Connected to %s MQTT broker' % mqtt_server)
   return client
