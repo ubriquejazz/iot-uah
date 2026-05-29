@@ -12,6 +12,9 @@ with open("config.json", "r") as f:
     f.close()
 
 mqtt_server = config["mqtt_server"]
+mqtt_user = config["mqtt_user"]
+mqtt_pass = config["mqtt_pass"]
+
 topic_data = config["topic_thold"]
 topic_relay = config["topic_relay"]
 client_id = "RPi_e0d3738fd6ed"
@@ -49,6 +52,7 @@ def send_val(label):
 
 # --- Initialize ---
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id)
+client.username_pw_set(mqtt_user, mqtt_pass)
 client.on_connect = on_connect
 client.on_message = on_message
 

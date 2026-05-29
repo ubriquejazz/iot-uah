@@ -12,6 +12,7 @@ client_id = "RPi_e0d3738fd6ed" # Your unique hardware ID
 
 # 2. Setup Client
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id)
+client.username_pw_set("alumno", "clave123")
 
 print(f"Conectando al broker: {broker_address}...")
 client.connect(broker_address)
