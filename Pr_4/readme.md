@@ -44,11 +44,15 @@ Nuestras microbits tienen las MAC:
 **EJERCICIO 2. Node-RED: Acelerómetro**
 
 - Añadir el código necesario para representar las componentes X, Y, Z en el chart.
-- Añadir los nodos necesarios para que cada vez que se lee el acelerómetro la fila 3 de la matriz de LEDs haga un toggle.
+- Cada vez que se lee el acelerómetro la fila 3 de la matriz de LEDs haga un toggle.
+
+| NRed | UI |
+|------|----|
+| . | ![](fig/image.png)|
 
 **Nota: envio a una característica de la Micro:bit**
 
-Vamos a enviar 5 bytes a la característica ‘LED matrix state’:
+Hemos enviado 5 bytes a la característica ‘LED matrix state’:
 
 ![](fig/node_red_leds.png)
 
@@ -58,12 +62,15 @@ Vamos a enviar 5 bytes a la característica ‘LED matrix state’:
 - Añadir todos los nodos necesarios en Node-RED para leer la temperatura cada 2 segundos 
 - Representarlos en un chart, en un rango de 0 ºC a 50 ºC.
 
-![](fig/ex03_temp_2s.png)
+| NRed | UI |
+|------|----|
+| ![](fig/ex03_temp_2s.png) | . |
 
 **EJERCICIO 4. Javascript: Acelerometro**
 
-- Comprobar el funcionamiento del [código](code/ex04.js), cambiando el periodo de notificación a 160 ms.
-- Tomar una caputra donde se muestren los resultados por la consola de Mobaxterm.
+- Comprobar el funcionamiento del [código](code/ex04.js), cambiando el periodo de notificación a 160 ms:
+
+  
 
 ![](fig/script.PNG)
 
@@ -71,7 +78,11 @@ Nota: el script [test_ble](test_ble.js) es el original del handout. Aqui usamos 
 
 **EJERCICIO 5. Propuesta OPCIONAL.**
 
-- Crear un flow de Node-RED en el que el programa anterior, que lee el acelerómetro, almacene el valor del acelerómetro en una variable global y esa variable global sea representada en un chart del dashboard de Node-RED.
+- El programa anterior almacena el valor del acelerómetro en la variable global **acc**
+- Esa variable global es representada en un chart del dashboard de Node-RED.
+
+| NRed | UI |
+|------|----|
 
 **EJERCICIO 6.**
 
@@ -82,19 +93,18 @@ Reprogramar la Microbit quitando el servicio de acelerómetro, temperatura y UAR
 - Configure 3 salidas digitales que se puedan poner a 0 y a 1 con tres botones del dashboard.
 - (Opcional) Configure una salida PWM y 2 objetos del dashboard que permitan variar periodo y ciclo de trabajo.
 
-![](fig/ex06_gpios.png)
+| NRed | UI |
+|------|----|
+| ![](fig/ex06_gpios.png) | . |
 
 **References**
 
-- Microbit [pinout](https://makecode.microbit.org/device/pins)
-
 ![](fig/mbit_overview.png)
 
-![alt text](fig/image.png)
+| Temperatura | IO Pin |
+|---|---|
+|![](fig/image-1.png)|![](fig/image-2.png)|
 
-![alt text](fig/image-1.png)
+El significado de mas servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). 
 
-![alt text](fig/image-2.png)
-
-El significado de esos servicios, características, UUIDs, etc., se pueden ver en detalle en su [documentación](https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html). 
-
+Microbit [pinout](https://makecode.microbit.org/device/pins)

@@ -6,8 +6,8 @@ Jose Miguel Gimeno
 
 1. Introduccion
 2. Componentes
-3. Codigo empleado
-4. Esquema eléctrico
+3. Esquema eléctrico
+4. Troubleshooting
 
 ## Introduccion
 
@@ -20,26 +20,29 @@ Se propone el desarrollo de una aplicación para la monitorización de la carga 
 - Bourns 10kΩ Rotary Potentiometer 
 - [Pulsador](https://www.amazon.es/interruptor-Akozon-Interruptor-pulsador-universal/dp/B08N44GQ5Q/ref=sr_1_7?) de 4 botones y relay 5VDC (JQC-3FF-S-Z)
 
-Suponemos que el ESP32 esta justo al lado de una bateria la cual se quiere monitorizar.
+Suponemos que el ESP32 esta justo al lado de una bateria la cual se quiere monitorizar (simulada por un potenciometro).
 
-El rele de la pizero simula una alarma. Se activa cuando el valor de voltage medido por el INA3321 es menor que un **threshold**. Asi mismo el valor del threshold viene determinado por la pulsacion de los dos botones segun la tabla siguiente:
+El rele de la pizero simula una alarma. Se activa cuando el valor de voltage medido por el INA3321 es menor que un **threshold**. Asi mismo, el valor del threshold viene determinado por la pulsacion de los dos botones segun la tabla siguiente:
 
-|   |  mA |
+| Boton |  mA |
 |---|--------|
-| Boton A | 9.1
-| Boton B | 4.7
+| A | 9.1|
+| B | 4.7|
 
 La pizero publica este valor en el topic_threshold. Suponemos que la pizero es solo el interfaz HMI del sistema, con lo que no tiene capacidad de decision sobre el rele (no esta subscrita al topic_esp).
 
 En node-red se muestra en un gauge el valor de voltage / temperatura de la bateria y valor del threshold.
 
+| NRed | UI |
+|------|----|
+
 A parte de Node-Red, la RPi4 tendra otro servidor web local con el valor de corriente medido. Si esta por debajo del **threshold** se muestra de color azul (rojo de otro modo). 
 
-| OK  |  Alarm |
+| Corriente OK |  Alarm |
 |-----|--------|
 |![](fig/alarmOff.png) | ![](fig/alarmOn.png) |
 
-La funcion **updateTemperatura** es la que actua sobre el rele en el caso de que la corriente sea menor que el threshold o cualquiera de las temperaturas es critica.
+A parte de la consola de Javascript, se ha creado una seccion con los logs mas representativos. La funcion **updateCurrent** (fichero functions.js) es la que actua sobre el rele en el caso de que la corriente sea menor que el threshold (logica de la aplicación).
 
 ## Componentes
 
@@ -91,7 +94,7 @@ El B-L475E-IOT01A Discovery kit se conectará a una WiFi (TBC). Cada vez que se 
 
 ![](fig/esquema.png)
 
-## Codigo empleado
+## Troubleshooting
 
 1. ../config.json - contiene los parametros comunes de MQTT
 1. Configuracion del Broker y Node-RED - rpi4/mosquitto.conf, rp4/flows.json
@@ -108,7 +111,7 @@ Scripts utiles en la carpeta raiz:
 - ssh_alumno.sh - para no introducir la clave cada vez que haces login en la rpi4
 - alumno.key - private key que se copia en el host (la publica en la rpi4 por defecto)
 
-#### Troubleshooting ESP32
+#### ESP32
 
 Extracto del Micropython para publicar el sensor de corriente (ESP32)
 
@@ -122,7 +125,7 @@ Se puede simular un valor JSON desde la linea de comando:
 
     mosquitto_pub -t "esp/ina" -m "{\"temp\":30.1,\"count\":100}"
 
-#### Troubleshooting Web Server
+#### Web Server (Pi4)
 
 Extracto de Javascript de la RPi4
 
@@ -140,7 +143,7 @@ El script install_web.sh hace la conversion del config-file (JSON):
     ...
     sudo systemctl start lighttpd.service
 
-#### Troubleshooting Zero
+#### Raspberry Zero
 
 Configuracion de una crontab en la Zero para el monitor los botones:
 

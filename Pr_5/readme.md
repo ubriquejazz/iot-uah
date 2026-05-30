@@ -47,13 +47,11 @@ Instalar Node.js y node-RED en Windows. Crear en Node-RED un flow con nodos MQTT
 
 ### Configuracion del Broker
 
-Instalar OpenSSL y crear los diferentes certificados del servidor:
+Instalar OpenSSL y crear los certificados del servidor y de la autoridad certificadora (con password):
 
-<img src="fig/cert_server.png" style="zoom:33%;" />
-
-De la autoridad certificadora (con password):
-
-<img src="fig/cert_CA.png" alt="autoridad" style="zoom: 33%;" />
+| servidor  |  autoridad |
+|-----------|------------|
+|![](fig/cert_server.png)| ![](fig/cert_CA.png)|
 
 Ahora firmamos el certificado del broker con el certificado ca.crt:
 
@@ -64,7 +62,7 @@ Ahora firmamos el certificado del broker con el certificado ca.crt:
 
 **Nota**: siempre usamos el mismo Common Name (la IP de la raspberry en nuestra red).
 
-Ahora tenemos que ir al directorio /etc/mosquitto y colocar las keys y certificado. Pero para no hacerlo manual, hemos automatizado los pasos en un script que hemos llamado [instala_certs](code/instala_certs.sh). 
+Ahora tenemos que ir al directorio /etc/mosquitto y colocar las keys y certificado. Para no hacerlo manual, hemos automatizado los pasos en un script al que hemos llamado [instala_certs](code/instala_certs.sh). 
 
 Al final, arrancar el mosquitto broker con seguridad SSL/TSL sin mayor problemas.
 
@@ -81,15 +79,13 @@ Los clientes mosquitto_pub y mosquitto_sub se empaquetan en unos scripts que fac
 
 ## B2. Seguridad usando SSL/TSL en Node-RED
 
-Se modifica el flow del ejercicio anterior para ver el funcionamiento con SSL/TSL.
+Se modifica el flow del ejercicio anterior para ver el funcionamiento con SSL/TSL. Hemos llamado **none** a la configuracion siguiente:
 
-<img src="fig/nred_setup_01.png" style="zoom:33%;" />
+| Connection | Properties |
+|------------|------------|
+|![](fig/nred_setup_01.png)|![](fig/nred_setup_02.png)|
 
-Hemos llamado **none** a la configuracion siguiente:
-
-<img src="fig/nred_setup_02.png" alt="msg_dbg" style="zoom:33%;" />
-
-NOTA: Hemos introducido el fichero ca.crt y la password que usamos en su creación pero sin éxito. 
+NOTA: Hemos introducido el fichero ca.crt y la password que usamos en su creación **pero sin éxito**. 
 
 Hemos indicado que no use ficheros locales ni que verifique el certificado del servidor como requeria el ejercicio:
 
