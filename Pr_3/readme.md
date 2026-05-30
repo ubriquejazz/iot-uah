@@ -65,7 +65,7 @@ Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlin
 ~/.node-red$ node code/ex04_bh1750.js
 ```
 
-Hemos anadido un sensor de luminosidad del tipo ![BH1750](https://www.handsontec.com/dataspecs/sensor/BH1750%20Light%20Sensor.pdf)
+Hemos anadido un sensor de luminosidad del tipo [BH1750](https://www.handsontec.com/dataspecs/sensor/BH1750%20Light%20Sensor.pdf)
 
 ![](fig/sensor_bh1750.PNG)
 
@@ -80,6 +80,41 @@ Instalar el bróker Mosquitto en Raspberry y arrancarlo en una consola. Partiend
 - Un LED (instalar el paquete ‘node-red-contrib-ui-led’) que indique el estado del GPIO18.
 
   ... 
+
+**Ejercico 5A: Dashboard**
+
+Mostrar un LED que indique el estado del GPIO18.
+
+	npm install node-red-node-pi-gpio node-red-contrib-ui-led
+	node code/ex03_blink.js 
+
+Mostrar un chart y un gauge (dashboard) en el que se visualice el valor de iluminación 
+
+| NRed | UI |
+|------|----|
+|![](fig/bh1750_nred.png)| ![](fig/ex05_ui_a.png) |
+
+**Ejercico 5B: MQTT y sensor I2C**
+
+Mandra el valor del sensor leído por MQTT: nodo MQTT que publique y otro node que lo lea.
+
+![](fig/ex05_nred_b.png)
+
+---
+
+Ojo, dentro de una función no se puede usar ‘require’. Es necesario añadirlos todos los ‘require’ en el fichero **settings.js**.  
+
+```
+~/.node-red$ cat settings.js
+
+functionGlobalContext: {
+	gpio:require('onoff').Gpio,
+	i2c:require('i2c-bus'),
+	os:require('os'),
+	...
+	
+~/.node-red$ 
+```
 
 **Referencias**
 

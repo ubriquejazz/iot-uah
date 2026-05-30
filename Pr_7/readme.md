@@ -4,19 +4,19 @@ Jose Miguel Gimeno
 
 Juan M. Gago (27/05)
 
-## A. Micropython
+## A. ESP32 - Hello MQTT
 
-Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. 
+Modificar el ejemplo *Hello_MQTT* para enviar periodicamente los datos de corriente de un sensor I2C (similar al ina219).
 
-- Modificar el ejemplo *Hello_MQTT* para enviar periodicamente los datos de corriente de un sensor I2C (similar al ina219).
-
-- El driver INA3221.py presupone este conexionado:
+- El driver INA3221.py presupone este conexionado
 
 <img src="fig/esp_i2c.png" style="zoom:33%;" />
 
 En node-red se ha creado el flujo que lee el JSON enviado y separa el campo **temp** y lo muestra en un chart; un numerico para el campo **cont** (contador de muestras, cada 6s):
 
-![pi4:1880/ui]()
+| NRed | UI |
+|------|----|
+| . | ![pi4:1880/ui]() |
 
 Nota: en vez de **temp** se es esta usando la funcion **get_current**(). Se puede ir jugando con el resto de funciones de la API: get_bus_voltage(), get_shunt_voltage(), etc.
 
@@ -40,7 +40,7 @@ Compilar el proyecto con STM32CubeIDE (es necesario convertirlo de SW4STM32)
 
 - Presentar datos en NODE-RED
 
-## STM32L475E - Aplicación Grovestreams
+## C. STM32L475E - Aplicación Grovestreams
 
 - Compilar el proyecto, ubicado en:
 
@@ -54,5 +54,6 @@ El objetivo de esta parte es aprender a configurar una cuenta en **Grovestreams*
 
 ## Referencias
 
+- Echar un vistazo el [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. 
 - [ESP32](https://raw.githubusercontent.com/RuiSantosdotme/ESP32-Course/master/img/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs.png) Wroom32
 - INA3221 [datasheet](https://www.ti.com/lit/ds/symlink/ina3221.pdf)
