@@ -1,6 +1,8 @@
 import ujson
 from ina3221 import INA3221
 
+client_id = "esp32_ina3221"
+
 with open("config.json", "r") as f:
     config = ujson.load(f)
     f.close()
@@ -15,6 +17,7 @@ def connect_and_subscribe():
   global client_id, mqtt_server
   #client = MQTTClient(client_id, mqtt_server)
   client = MQTTClient(client_id, mqtt_server, user=mqtt_user, password=mqtt_pass)
+  #client.set_callback(on_message)
   client.connect()
   print('Connected to %s MQTT broker' % mqtt_server)
   return client
