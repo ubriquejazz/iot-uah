@@ -31,7 +31,7 @@ El rele de la pizero simula una alarma. Se activa cuando el valor de voltage med
 
 La pizero publica este valor en el topic_threshold. Suponemos que la pizero es solo el interfaz HMI del sistema, con lo que no tiene capacidad de decision sobre el rele (no esta subscrita al topic_esp).
 
-En node-red se muestra en un gauge el valor de voltage / temperatura de la bateria y valor del threshold.
+En node-red se muestra en un gauge el valor de voltage / corriente de la bateria y valor del threshold.
 
 | NRed | UI |
 |------|----|
@@ -113,7 +113,13 @@ Scripts utiles en la carpeta raiz:
 
 #### ESP32
 
-Extracto del Micropython para publicar el sensor de corriente (ESP32)
+Hemos modificado el ejemplo *Hello_MQTT* para enviar periodicamente los datos de corriente de un sensor I2C (similar al ina219):
+
+| conexion | detalle real |
+|----------|--------------|
+| ![](fig/esp_i2c.png) | ![](fig/divisor_corr.jpeg) |
+
+Extracto del Micropython para publicar el valor leido por el sensor de corriente (INA)
 
     payload = {
     "temp": simulated_temp,
