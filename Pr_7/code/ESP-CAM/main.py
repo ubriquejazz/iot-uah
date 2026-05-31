@@ -1,4 +1,4 @@
-import time, usjon
+import time, ujson
 import camera
 from umqttsimple import MQTTClient
 
