@@ -131,6 +131,8 @@ Se puede simular un valor JSON desde la linea de comando:
 
     mosquitto_pub -t "esp/ina" -m "{\"temp\":30.1,\"count\":100}"
 
+Nota: aunque el campo se llama **temp**, se es esta usando la funcion **get_current**(). Se puede ir jugando con el resto de funciones de la API: get_bus_voltage(), get_shunt_voltage(), etc.
+
 #### Web Server (Pi4)
 
 Extracto de Javascript de la RPi4
