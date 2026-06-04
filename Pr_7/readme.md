@@ -51,4 +51,5 @@ El objetivo de esta parte es aprender a configurar una cuenta en **Grovestreams*
 ## Referencias
 
 - Link en [github](https://github.com/RuiSantosdotme/ESP-MicroPython/tree/master) del libro de RuiSantos. 
-- [ESP32](https://raw.githubusercontent.com/RuiSantosdotme/ESP32-Course/master/img/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs.png) Wroom32, INA3221 [datasheet](https://www.ti.com/lit/ds/symlink/ina3221.pdf)
+- [ESP32](https://raw.githubusercontent.com/RuiSantosdotme/ESP32-Course/master/img/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs.png) Wroom32, [ESP32](esp32.md) original, ESP-[Cam](esp-cam.md)
+- Raspberry [pico](pico.md), INA3221 [datasheet](https://www.ti.com/lit/ds/symlink/ina3221.pdf)
