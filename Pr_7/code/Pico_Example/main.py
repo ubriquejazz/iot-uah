@@ -2,24 +2,19 @@ import machine
 import utime
 import neopixel
 
-print("===============================")
-print("  YD-RP2040 Comprehensive Test ")
-print("===============================\n")
-
-# --- 1. PIN CONFIGURATIONS SPECIFIC TO YOUR BOARD ---
-NEOPIXEL_PIN = 23    # Board's built-in RGB NeoPixel
+NEOPIXEL_PIN = 23    # R68 soldered
 USR_BUTTON_PIN = 24  # Board's built-in 'USR' button
 
 # Initialize Hardware
 np = neopixel.NeoPixel(machine.Pin(NEOPIXEL_PIN, machine.Pin.OUT), 1)
 blue_led = machine.Pin("LED", machine.Pin.OUT)
 usr_button = machine.Pin(USR_BUTTON_PIN, machine.Pin.IN, machine.Pin.PULL_UP)
+uart = machine.UART(0, baudrate=9600, tx=machine.Pin(0), rx=machine.Pin(1))
 
 # Internal Temperature Sensor Setup
 temp_sensor = machine.ADC(4)
 conversion_factor = 3.3 / 65535
 
-# --- 2. HELPER FUNCTIONS ---
 def set_neopixel(r, g, b):
     """Sets the RGB LED brightness (max 255, but kept dim to save your eyes)"""
     np[0] = (r, g, b)
@@ -30,32 +25,10 @@ def read_temperature():
     reading = temp_sensor.read_u16() * conversion_factor
     return 27 - (reading - 0.706) / 0.001721
 
-# --- 3. RUNNING THE DIAGNOSTICS ---
-
-print("[1/3] Testing Onboard Blue LED (GP22)...")
-for _ in range(3):
-    blue_led.value(1)
-    utime.sleep_ms(150)
-    blue_led.value(0)
-    utime.sleep_ms(150)
-
-print("[2/3] Testing RGB NeoPixel (GP23)...")
-# Flash Red, Green, Blue
-for color in [(40, 0, 0), (0, 40, 0), (0, 0, 40)]:
-    np[0] = color
-    np.write()
-    utime.sleep_ms(250)
-set_neopixel(0, 0, 0) # Turn off
-
-print("[3/3] Launching Live Dashboard...")
-print("--------------------------------------------------")
-print("-> Press the physical 'USR' button on your board!")
-print("-> Press Ctrl+C in Thonny to stop the test.")
-print("--------------------------------------------------\n")
-
 print("{:<15} | {:<15} | {:<15}".format("USR Button", "Blue LED State", "Internal Temp"))
 print("-" * 52)
 
+buffer = b"" # Byte buffer to accumulate incoming bytes
 try:
     while True:
         # The USR button connects to GND when pressed, so 0 = PRESSED
@@ -72,6 +45,12 @@ try:
             
         current_temp = read_temperature()
         
+        if uart.any():
+            incoming_bytes = uart.read()
+            buffer += incoming_bytes  
+            line_str = buffer.decode('utf-8').strip()
+            print(line_str)
+            
         # Print rewriting dashboard line (\r)
         print("{:<15} | {:<15} | {:.2f}°C       ".format(btn_text, "ON" if blue_led.value() else "OFF", current_temp), end="\r")
         utime.sleep_ms(50)
@@ -83,3 +62,4 @@ finally:
     blue_led.value(0)
     set_neopixel(0, 0, 0)
     print("Pins safely cleared. Your board is 100% functional!")
+
